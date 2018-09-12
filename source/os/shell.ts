@@ -49,6 +49,12 @@ module TSOS {
                                   "- Shows the current location.");
             this.commandList[this.commandList.length] = sc;
 
+            // babel
+            sc = new ShellCommand(this.shellBabel,
+                                  "babel",
+                                  "- Initializes a protocol to incapacitate the Justice League");
+            this.commandList[this.commandList.length] = sc;
+
             // help
             sc = new ShellCommand(this.shellHelp,
                                   "help",
@@ -226,6 +232,28 @@ module TSOS {
                   break;
             }
 
+        }
+
+        public shellBabel() {
+            _StdOut.putText("Initializing the Tower of Babel protocol...");
+            _StdOut.advanceLine();
+            _StdOut.putText("Superman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Wonder Woman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Martian Manhunter....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Flash....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Green Lanturn....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Aquaman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Plastic Man....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Batman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("All Members of the Justice League are contained");
         }
 
         public shellHelp(args) {

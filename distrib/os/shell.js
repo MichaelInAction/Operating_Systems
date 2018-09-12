@@ -34,6 +34,9 @@ var TSOS;
             // whereami
             sc = new TSOS.ShellCommand(this.shellWhereAmI, "whereami", "- Shows the current location.");
             this.commandList[this.commandList.length] = sc;
+            // babel
+            sc = new TSOS.ShellCommand(this.shellBabel, "babel", "- Initializes a protocol to incapacitate the Justice League");
+            this.commandList[this.commandList.length] = sc;
             // help
             sc = new TSOS.ShellCommand(this.shellHelp, "help", "- This is the help command. Seek help.");
             this.commandList[this.commandList.length] = sc;
@@ -95,13 +98,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
                     this.execute(this.shellApology);
                 }
-                else { // It's just a bad command. {
+                else {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -177,6 +180,27 @@ var TSOS;
                     _StdOut.putText("Are you sure you didn't sustain any head injuries?");
                     break;
             }
+        };
+        Shell.prototype.shellBabel = function () {
+            _StdOut.putText("Initializing the Tower of Babel protocol...");
+            _StdOut.advanceLine();
+            _StdOut.putText("Superman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Wonder Woman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Martian Manhunter....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Flash....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Green Lanturn....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Aquaman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Plastic Man....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("Batman....neutralized");
+            _StdOut.advanceLine();
+            _StdOut.putText("All Members of the Justice League are contained");
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");
