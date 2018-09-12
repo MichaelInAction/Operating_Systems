@@ -37,6 +37,18 @@ module TSOS {
                                   "- Displays the current version data.");
             this.commandList[this.commandList.length] = sc;
 
+            // date
+            sc = new ShellCommand(this.shellDate,
+                                  "date",
+                                  "- Shows the current date.");
+            this.commandList[this.commandList.length] = sc;
+
+            // whereami
+            sc = new ShellCommand(this.shellWhereAmI,
+                                  "whereami",
+                                  "- Shows the current location.");
+            this.commandList[this.commandList.length] = sc;
+
             // help
             sc = new ShellCommand(this.shellHelp,
                                   "help",
@@ -77,12 +89,6 @@ module TSOS {
             sc = new ShellCommand(this.shellPrompt,
                                   "prompt",
                                   "<string> - Sets the prompt.");
-            this.commandList[this.commandList.length] = sc;
-
-            // date
-            sc = new ShellCommand(this.shellDate,
-                                  "date",
-                                  "- Shows the current date.");
             this.commandList[this.commandList.length] = sc;
 
             // ps  - list the running processes and their IDs
@@ -185,35 +191,41 @@ module TSOS {
         //
         public shellInvalidCommand() {
             _StdOut.putText("Invalid Command. ");
-            if (_SarcasticMode) {
-                _StdOut.putText("Unbelievable. You, [subject name here],");
-                _StdOut.advanceLine();
-                _StdOut.putText("must be the pride of [subject hometown here].");
-            } else {
-                _StdOut.putText("Type 'help' for, well... help.");
-            }
+            _StdOut.putText("If you require my assistance, Master Bruce,");
+            _StdOut.advanceLine();
+            _StdOut.putText("just type 'help' ");
         }
 
         public shellCurse() {
-            _StdOut.putText("Oh, so that's how it's going to be, eh? Fine.");
-            _StdOut.advanceLine();
-            _StdOut.putText("Bitch.");
-            _SarcasticMode = true;
+            _StdOut.putText("Master Bruce, there's no need for profanity");
         }
 
         public shellApology() {
-           if (_SarcasticMode) {
-              _StdOut.putText("I think we can put our differences behind us.");
-              _StdOut.advanceLine();
-              _StdOut.putText("For science . . . You monster.");
-              _SarcasticMode = false;
-           } else {
-              _StdOut.putText("For what?");
-           }
+            _StdOut.putText("Master Bruce, are you quite alright?");
         }
 
         public shellVer(args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
+        }
+
+        public shellDate() {
+            var date: Date = new Date();
+            _StdOut.putText("Master Bruce, it is currently " + date.toString());
+        }
+
+        public shellWhereAmI() {
+            var rand: number = Math.floor(Math.random() * Math.floor(2));
+            switch (rand){
+                case 0:
+                  _StdOut.putText("You are currently aboard the Watchtower.");
+                  break;
+                case 1:
+                  _StdOut.putText("You're in the batcave, Master Bruce...");
+                  _StdOut.advanceLine();
+                  _StdOut.putText("Are you sure you didn't sustain any head injuries?");
+                  break;
+            }
+
         }
 
         public shellHelp(args) {
@@ -257,12 +269,8 @@ module TSOS {
                 var setting = args[0];
                 switch (setting) {
                     case "on":
-                        if (_Trace && _SarcasticMode) {
-                            _StdOut.putText("Trace is already on, doofus.");
-                        } else {
-                            _Trace = true;
-                            _StdOut.putText("Trace ON");
-                        }
+                        _Trace = true;
+                        _StdOut.putText("Trace ON");
                         break;
                     case "off":
                         _Trace = false;
@@ -291,11 +299,6 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
-        }
-
-        public shellDate() {
-            var date: Date = new Date();
-            _StdOut.putText("Master Bruce, it is currently " + date.toString());
         }
 
     }

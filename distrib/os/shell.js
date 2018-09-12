@@ -28,6 +28,12 @@ var TSOS;
             // ver
             sc = new TSOS.ShellCommand(this.shellVer, "ver", "- Displays the current version data.");
             this.commandList[this.commandList.length] = sc;
+            // date
+            sc = new TSOS.ShellCommand(this.shellDate, "date", "- Shows the current date.");
+            this.commandList[this.commandList.length] = sc;
+            // whereami
+            sc = new TSOS.ShellCommand(this.shellWhereAmI, "whereami", "- Shows the current location.");
+            this.commandList[this.commandList.length] = sc;
             // help
             sc = new TSOS.ShellCommand(this.shellHelp, "help", "- This is the help command. Seek help.");
             this.commandList[this.commandList.length] = sc;
@@ -48,9 +54,6 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
             // prompt <string>
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
-            this.commandList[this.commandList.length] = sc;
-            // date
-            sc = new TSOS.ShellCommand(this.shellDate, "date", "- Shows the current date.");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -145,34 +148,35 @@ var TSOS;
         //
         Shell.prototype.shellInvalidCommand = function () {
             _StdOut.putText("Invalid Command. ");
-            if (_SarcasticMode) {
-                _StdOut.putText("Unbelievable. You, [subject name here],");
-                _StdOut.advanceLine();
-                _StdOut.putText("must be the pride of [subject hometown here].");
-            }
-            else {
-                _StdOut.putText("Type 'help' for, well... help.");
-            }
+            _StdOut.putText("If you require my assistance, Master Bruce,");
+            _StdOut.advanceLine();
+            _StdOut.putText("just type 'help' ");
         };
         Shell.prototype.shellCurse = function () {
-            _StdOut.putText("Oh, so that's how it's going to be, eh? Fine.");
-            _StdOut.advanceLine();
-            _StdOut.putText("Bitch.");
-            _SarcasticMode = true;
+            _StdOut.putText("Master Bruce, there's no need for profanity");
         };
         Shell.prototype.shellApology = function () {
-            if (_SarcasticMode) {
-                _StdOut.putText("I think we can put our differences behind us.");
-                _StdOut.advanceLine();
-                _StdOut.putText("For science . . . You monster.");
-                _SarcasticMode = false;
-            }
-            else {
-                _StdOut.putText("For what?");
-            }
+            _StdOut.putText("Master Bruce, are you quite alright?");
         };
         Shell.prototype.shellVer = function (args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
+        };
+        Shell.prototype.shellDate = function () {
+            var date = new Date();
+            _StdOut.putText("Master Bruce, it is currently " + date.toString());
+        };
+        Shell.prototype.shellWhereAmI = function () {
+            var rand = Math.floor(Math.random() * Math.floor(2));
+            switch (rand) {
+                case 0:
+                    _StdOut.putText("You are currently aboard the Watchtower.");
+                    break;
+                case 1:
+                    _StdOut.putText("You're in the batcave, Master Bruce...");
+                    _StdOut.advanceLine();
+                    _StdOut.putText("Are you sure you didn't sustain any head injuries?");
+                    break;
+            }
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");
@@ -212,13 +216,8 @@ var TSOS;
                 var setting = args[0];
                 switch (setting) {
                     case "on":
-                        if (_Trace && _SarcasticMode) {
-                            _StdOut.putText("Trace is already on, doofus.");
-                        }
-                        else {
-                            _Trace = true;
-                            _StdOut.putText("Trace ON");
-                        }
+                        _Trace = true;
+                        _StdOut.putText("Trace ON");
                         break;
                     case "off":
                         _Trace = false;
@@ -248,10 +247,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
-        };
-        Shell.prototype.shellDate = function () {
-            var date = new Date();
-            _StdOut.putText("Master Bruce, it is currently " + date.toString());
         };
         return Shell;
     }());
