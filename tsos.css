@@ -1,7 +1,9 @@
 /* TSOS.css */
 
 body {
-  background: #909193 url(distrib/images/JL.jpg);
+  background: #909193 url(distrib/images/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: Helvetica, Verdana, Arial, sans-serif;
   font-size: 12pt;
   font-weight: normal;
@@ -31,9 +33,14 @@ h3 {
 }
 
 #display {
-  background-color:#DFDBC3;
-  border: 2px solid red;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid black;
   cursor: default;
+}
+
+#divTaskBar {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid black;
 }
 
 .normal_button {
