@@ -68,7 +68,15 @@
              onclick="TSOS.Control.hostBtnReset_click(this);">
    </div>
 
-   <div id="divTaskBar">
+   <div id="divTaskBar" onload="checkTime()">
+     <script>
+      //Get the date and time for the task bar
+      function checkTime() {
+        var dateTime = new Date();
+        document.getElementById('taskBarDate').innerHTML = "DATE: " + dateTime.toString();
+        setTimeout(checkTime, 500);
+      }
+     </script>
      <div id="taskBarDate"></div><div id="taskBarStatus"></div>
    </div>
 

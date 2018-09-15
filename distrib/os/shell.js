@@ -20,6 +20,7 @@ var TSOS;
             this.commandList = [];
             this.curses = "[fuvg],[cvff],[shpx],[phag],[pbpxfhpxre],[zbgureshpxre],[gvgf]";
             this.apologies = "[sorry]";
+            this.status = "";
         }
         Shell.prototype.init = function () {
             var sc;
@@ -58,11 +59,15 @@ var TSOS;
             // prompt <string>
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
+            // status <string>
+            sc = new TSOS.ShellCommand(this.shellStatus, "status", "<string> - Sets the status.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
             // Display the initial prompt.
             this.putPrompt();
+            this.checkTime();
         };
         Shell.prototype.putPrompt = function () {
             _StdOut.putText(this.promptStr);
@@ -271,6 +276,15 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        };
+        Shell.prototype.shellStatus = function (args) {
+            this.status = args.join(' ');
+            document.getElementById('taskBarStatus').innerHTML = " STATUS: " + this.status;
+        };
+        Shell.prototype.checkTime = function () {
+            this.dateTime = new Date();
+            document.getElementById('taskBarDate').innerHTML = "Date: " + this.dateTime.toString() + " | Status: " + this.status;
+            var t = setTimeout(this.checkTime, 500);
         };
         return Shell;
     }());

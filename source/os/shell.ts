@@ -22,6 +22,8 @@ module TSOS {
         public commandList = [];
         public curses = "[fuvg],[cvff],[shpx],[phag],[pbpxfhpxre],[zbgureshpxre],[gvgf]";
         public apologies = "[sorry]";
+        public status = "";
+        public dateTime;
 
         constructor() {
         }
@@ -97,12 +99,19 @@ module TSOS {
                                   "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
 
+            // status <string>
+            sc = new ShellCommand(this.shellStatus,
+                                  "status",
+                                  "<string> - Sets the status.");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
             //
             // Display the initial prompt.
             this.putPrompt();
+            this.checkTime();
         }
 
         public putPrompt() {
@@ -327,6 +336,17 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        }
+
+        public shellStatus(args) {
+          this.status = args.join(' ');
+          document.getElementById('taskBarStatus').innerHTML = " STATUS: " + this.status;
+        }
+
+        public checkTime() {
+          this.dateTime = new Date();
+          document.getElementById('taskBarDate').innerHTML = "Date: " + this.dateTime.toString() + " | Status: " + this.status;
+          var t = setTimeout(this.checkTime, 500);
         }
 
     }
