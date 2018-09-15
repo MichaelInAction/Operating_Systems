@@ -38,12 +38,23 @@ var TSOS;
                 // Get the next character from the kernel input queue.
                 var chr = _KernelInputQueue.dequeue();
                 // Check to see if it's "special" (enter or ctrl-c) or "normal" (anything else that the keyboard device driver gave us).
-                if (chr === String.fromCharCode(13)) { //     Enter key
+                if (chr === String.fromCharCode(13)) {
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
                     // ... and reset our buffer.
                     this.buffer = "";
+                }
+                else if (chr === String.fromCharCode(8)) {
+                    if (this.buffer.length > 0) {
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer.substr(this.buffer.length - 1, this.buffer.length));
+                        var yOffset = (_DefaultFontSize +
+                            _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                            _FontHeightMargin);
+                        _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset / 2, offset, yOffset);
+                        this.currentXPosition = this.currentXPosition - offset;
+                        this.buffer = this.buffer.substr(0, this.buffer.length - 1);
+                    }
                 }
                 else {
                     // This is a "normal" character, so ...
