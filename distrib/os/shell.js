@@ -103,13 +103,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
                     this.execute(this.shellApology);
                 }
-                else {
+                else { // It's just a bad command. {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -285,6 +285,17 @@ var TSOS;
             this.dateTime = new Date();
             document.getElementById('taskBarDate').innerHTML = "Date: " + this.dateTime.toString() + " | Status: " + this.status;
             var t = setTimeout(this.checkTime, 500);
+        };
+        // This function returns the first command in the list that
+        Shell.prototype.completeCommand = function (args) {
+            var ret = "";
+            for (var i in this.commandList) {
+                if (this.commandList[i].command.indexOf(args) == 0) {
+                    console.log('Found a match! The match is ' + this.commandList[i].command);
+                    ret = this.commandList[i].command;
+                }
+            }
+            return ret;
         };
         return Shell;
     }());

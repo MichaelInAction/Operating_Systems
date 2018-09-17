@@ -349,5 +349,17 @@ module TSOS {
           var t = setTimeout(this.checkTime, 500);
         }
 
+        // This function returns the first command in the list that
+        public completeCommand(args) {
+          var ret = "";
+          for (var i in this.commandList) {
+            if (this.commandList[i].command.indexOf(args) == 0) {
+              console.log('Found a match! The match is ' + this.commandList[i].command);
+              ret = this.commandList[i].command;
+            }
+          }
+          return ret;
+        }
+
     }
 }

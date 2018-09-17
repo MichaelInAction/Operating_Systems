@@ -55,6 +55,20 @@ module TSOS {
                       this.currentXPosition = this.currentXPosition - offset;
                       this.buffer = this.buffer.substr(0, this.buffer.length - 1);
                     }
+                } else if (chr === String.fromCharCode(9)) { // Tab
+                  if(this.buffer.length > 0) {
+                    var completed = _OsShell.completeCommand(this.buffer);
+                    if (completed.length > 0) {
+                      var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer);
+                      var yOffset = (_DefaultFontSize +
+                                     _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                                     _FontHeightMargin)
+                      _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset/2, offset, yOffset);
+                      this.currentXPosition = this.currentXPosition - offset;
+                      this.buffer = completed;
+                      this.putText(this.buffer);
+                    }
+                  }
                 } else if (chr === String.fromCharCode(188)) {
                   this.putText(',');
                   this.buffer += ',';
