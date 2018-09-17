@@ -17,6 +17,8 @@ module TSOS {
                     public currentFontSize = _DefaultFontSize,
                     public currentXPosition = 0,
                     public currentYPosition = _DefaultFontSize,
+                    public history = [],
+                    public historyIndex = 0,
                     public buffer = "") {
         }
 
@@ -43,6 +45,11 @@ module TSOS {
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    // push the contents of the buffer into the history if the length is greater than 0
+                    if (this.buffer.length > 0) {
+                      this.history.push(this.buffer);
+                      this.historyIndex = 0;
+                    }
                     // ... and reset our buffer.
                     this.buffer = "";
                 } else if (chr === String.fromCharCode(8)) { // Backspace
@@ -68,6 +75,36 @@ module TSOS {
                       this.buffer = completed;
                       this.putText(this.buffer);
                     }
+                  }
+                } else if (chr === String.fromCharCode(40)) {
+                  if (this.history.length > 0) {
+                    this.historyIndex = this.historyIndex + 1;
+                    if (this.historyIndex >= this.history.length) {
+                      this.historyIndex = 0;
+                    }
+                    var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer);
+                    var yOffset = (_DefaultFontSize +
+                                   _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                                   _FontHeightMargin)
+                    _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset/2, offset, yOffset);
+                    this.currentXPosition = this.currentXPosition - offset;
+                    this.buffer = this.history[this.historyIndex];
+                    this.putText(this.buffer);
+                  }
+                } else if (chr === String.fromCharCode(38)) {
+                  if (this.history.length > 0) {
+                    this.historyIndex = this.historyIndex - 1;
+                    if (this.historyIndex < 0) {
+                      this.historyIndex = this.history.length - 1;
+                    }
+                    var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer);
+                    var yOffset = (_DefaultFontSize +
+                                   _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                                   _FontHeightMargin)
+                    _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset/2, offset, yOffset);
+                    this.currentXPosition = this.currentXPosition - offset;
+                    this.buffer = this.history[this.historyIndex];
+                    this.putText(this.buffer);
                   }
                 } else if (chr === String.fromCharCode(188)) {
                   this.putText(',');

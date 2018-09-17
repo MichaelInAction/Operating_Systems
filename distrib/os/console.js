@@ -10,16 +10,20 @@
 var TSOS;
 (function (TSOS) {
     var Console = /** @class */ (function () {
-        function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, buffer) {
+        function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, history, historyIndex, buffer) {
             if (currentFont === void 0) { currentFont = _DefaultFontFamily; }
             if (currentFontSize === void 0) { currentFontSize = _DefaultFontSize; }
             if (currentXPosition === void 0) { currentXPosition = 0; }
             if (currentYPosition === void 0) { currentYPosition = _DefaultFontSize; }
+            if (history === void 0) { history = []; }
+            if (historyIndex === void 0) { historyIndex = 0; }
             if (buffer === void 0) { buffer = ""; }
             this.currentFont = currentFont;
             this.currentFontSize = currentFontSize;
             this.currentXPosition = currentXPosition;
             this.currentYPosition = currentYPosition;
+            this.history = history;
+            this.historyIndex = historyIndex;
             this.buffer = buffer;
         }
         Console.prototype.init = function () {
@@ -42,6 +46,11 @@ var TSOS;
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    // push the contents of the buffer into the history if the length is greater than 0
+                    if (this.buffer.length > 0) {
+                        this.history.push(this.buffer);
+                        this.historyIndex = 0;
+                    }
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
@@ -69,6 +78,38 @@ var TSOS;
                             this.buffer = completed;
                             this.putText(this.buffer);
                         }
+                    }
+                }
+                else if (chr === String.fromCharCode(40)) {
+                    if (this.history.length > 0) {
+                        this.historyIndex = this.historyIndex + 1;
+                        if (this.historyIndex >= this.history.length) {
+                            this.historyIndex = 0;
+                        }
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer);
+                        var yOffset = (_DefaultFontSize +
+                            _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                            _FontHeightMargin);
+                        _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset / 2, offset, yOffset);
+                        this.currentXPosition = this.currentXPosition - offset;
+                        this.buffer = this.history[this.historyIndex];
+                        this.putText(this.buffer);
+                    }
+                }
+                else if (chr === String.fromCharCode(38)) {
+                    if (this.history.length > 0) {
+                        this.historyIndex = this.historyIndex - 1;
+                        if (this.historyIndex < 0) {
+                            this.historyIndex = this.history.length - 1;
+                        }
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer);
+                        var yOffset = (_DefaultFontSize +
+                            _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                            _FontHeightMargin);
+                        _DrawingContext.clearRect(this.currentXPosition - offset, this.currentYPosition - yOffset / 2, offset, yOffset);
+                        this.currentXPosition = this.currentXPosition - offset;
+                        this.buffer = this.history[this.historyIndex];
+                        this.putText(this.buffer);
                     }
                 }
                 else if (chr === String.fromCharCode(188)) {

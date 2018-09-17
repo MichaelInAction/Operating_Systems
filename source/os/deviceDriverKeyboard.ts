@@ -54,6 +54,8 @@ module TSOS {
                         (keyCode == 13)                     ||   // enter
                         (keyCode == 8)                      ||   // backspace
                         (keyCode == 9)                      ||   // tab
+                        (keyCode == 38)                      ||   // up arrow
+                        (keyCode == 40)                      ||   // down arrow
                         (keyCode == 192)                      ||   // backtick
                         (keyCode == 188)                      ||   // comma
                         (keyCode == 190)                      ||   // period
