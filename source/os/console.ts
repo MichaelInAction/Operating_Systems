@@ -55,6 +55,33 @@ module TSOS {
                       this.currentXPosition = this.currentXPosition - offset;
                       this.buffer = this.buffer.substr(0, this.buffer.length - 1);
                     }
+                } else if (chr === String.fromCharCode(188)) {
+                  this.putText(',');
+                  this.buffer += ',';
+                } else if (chr === String.fromCharCode(192)) {
+                  this.putText('`');
+                  this.buffer += '``';
+                } else if (chr === String.fromCharCode(190)) {
+                  this.putText('.');
+                  this.buffer += '.';
+                } else if (chr === String.fromCharCode(186)) {
+                  this.putText(';');
+                  this.buffer += ';';
+                } else if (chr === String.fromCharCode(222)) {
+                  this.putText('\'');
+                  this.buffer += '\'';
+                } else if (chr === String.fromCharCode(219)) {
+                  this.putText('[');
+                  this.buffer += '[';
+                } else if (chr === String.fromCharCode(221)) {
+                  this.putText(']');
+                  this.buffer += ']';
+                } else if (chr === String.fromCharCode(220)) {
+                  this.putText('\\');
+                  this.buffer += '\\';
+                } else if (chr === String.fromCharCode(187)) {
+                  this.putText('=');
+                  this.buffer += '=';
                 } else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
