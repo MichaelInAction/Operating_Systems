@@ -106,13 +106,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
                     this.execute(this.shellApology);
                 }
-                else { // It's just a bad command. {
+                else {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -211,7 +211,15 @@ var TSOS;
             _StdOut.putText("All Members of the Justice League are contained");
         };
         Shell.prototype.shellLoad = function () {
-            _StdOut.putText("loading");
+            var userInput = document.getElementById('taProgramInput').value;
+            console.log(userInput);
+            var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
+            if (invalidCharacters.test(userInput)) {
+                _StdOut.putText("Invalid character found");
+            }
+            else {
+                _StdOut.putText("Input is valid");
+            }
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");

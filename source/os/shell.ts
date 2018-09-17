@@ -272,8 +272,15 @@ module TSOS {
         }
 
         public shellLoad() {
-          var userInput: string = document.getElementById('taProgramInput').innerHTML;
-          var validCharacters = new RegExp(/[0-9]|[A-F]/);
+          var userInput: string = document.getElementById('taProgramInput').value;
+          console.log(userInput);
+          var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
+          if (invalidCharacters.test(userInput)) {
+            _StdOut.putText("Invalid character found");
+          }
+          else {
+            _StdOut.putText("Input is valid");
+          }
         }
 
         public shellHelp(args) {
