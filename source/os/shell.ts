@@ -105,6 +105,12 @@ module TSOS {
                                   "<string> - Sets the status.");
             this.commandList[this.commandList.length] = sc;
 
+            // load
+            sc = new ShellCommand(this.shellLoad,
+                                  "load",
+                                  "- Validates the users code in the User Program Input area.");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -263,6 +269,11 @@ module TSOS {
             _StdOut.putText("Batman....neutralized");
             _StdOut.advanceLine();
             _StdOut.putText("All Members of the Justice League are contained");
+        }
+
+        public shellLoad() {
+          var userInput: string = document.getElementById('taProgramInput').innerHTML;
+          var validCharacters = new RegExp(/[0-9]|[A-F]/);
         }
 
         public shellHelp(args) {

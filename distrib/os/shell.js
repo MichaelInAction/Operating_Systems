@@ -62,6 +62,9 @@ var TSOS;
             // status <string>
             sc = new TSOS.ShellCommand(this.shellStatus, "status", "<string> - Sets the status.");
             this.commandList[this.commandList.length] = sc;
+            // load
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- Validates the users code in the User Program Input area.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
@@ -206,6 +209,9 @@ var TSOS;
             _StdOut.putText("Batman....neutralized");
             _StdOut.advanceLine();
             _StdOut.putText("All Members of the Justice League are contained");
+        };
+        Shell.prototype.shellLoad = function () {
+            _StdOut.putText("loading");
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");
