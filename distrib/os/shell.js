@@ -65,6 +65,9 @@ var TSOS;
             // load
             sc = new TSOS.ShellCommand(this.shellLoad, "load", "- Validates the users code in the User Program Input area.");
             this.commandList[this.commandList.length] = sc;
+            // Blue Screen of Death
+            sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "- Displays the Blue Screen of Death.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
@@ -106,13 +109,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
                     this.execute(this.shellApology);
                 }
-                else {
+                else { // It's just a bad command. {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -294,6 +297,15 @@ var TSOS;
         Shell.prototype.shellStatus = function (args) {
             this.status = args.join(' ');
             document.getElementById('taskBarStatus').innerHTML = " STATUS: " + this.status;
+        };
+        Shell.prototype.shellBSOD = function () {
+            _Console.init();
+            _DrawingContext.fillStyle = 'rgb(0,0,255)';
+            _DrawingContext.fillRect(0, 0, _Canvas.width, _Canvas.height);
+            _StdOut.putText("There has been an error");
+            _Console.advanceLine();
+            _StdOut.putText("Please reboot.");
+            _Kernel.krnShutdown();
         };
         Shell.prototype.checkTime = function () {
             this.dateTime = new Date();

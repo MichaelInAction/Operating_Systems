@@ -111,6 +111,12 @@ module TSOS {
                                   "- Validates the users code in the User Program Input area.");
             this.commandList[this.commandList.length] = sc;
 
+            // Blue Screen of Death
+            sc = new ShellCommand(this.shellBSOD,
+                                  "bsod",
+                                  "- Displays the Blue Screen of Death.");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -359,6 +365,16 @@ module TSOS {
         public shellStatus(args) {
           this.status = args.join(' ');
           document.getElementById('taskBarStatus').innerHTML = " STATUS: " + this.status;
+        }
+
+        public shellBSOD() {
+          _Console.init();
+          _DrawingContext.fillStyle = 'rgb(0,0,255)'
+          _DrawingContext.fillRect(0, 0, _Canvas.width, _Canvas.height);
+          _StdOut.putText("There has been an error");
+          _Console.advanceLine();
+          _StdOut.putText("Please reboot.");
+          _Kernel.krnShutdown();
         }
 
         public checkTime() {
