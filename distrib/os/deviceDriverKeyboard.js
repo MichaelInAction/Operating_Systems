@@ -57,6 +57,76 @@ var TSOS;
                 // TODO: Check for caps-lock and handle as shifted if so.
                 _KernelInputQueue.enqueue(chr);
             }
+            else if (isShifted) {
+                if (keyCode == 48) {
+                    chr = ")";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 49) {
+                    chr = "!";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 50) {
+                    chr = "@";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 51) {
+                    chr = "#";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 52) {
+                    chr = "$";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 53) {
+                    chr = "%";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 54) {
+                    chr = "^";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 56) {
+                    chr = "*";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 192) {
+                    chr = "~";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 187) {
+                    chr = "+";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 219) {
+                    chr = "{";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 221) {
+                    chr = "}";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 220) {
+                    chr = "|";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 186) {
+                    chr = ":";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 222) {
+                    chr = "\"";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 188) {
+                    chr = "<";
+                    _KernelInputQueue.enqueue(chr);
+                }
+                else if (keyCode == 190) {
+                    chr = ">";
+                    _KernelInputQueue.enqueue(chr);
+                }
+            }
             else if (((keyCode >= 48) && (keyCode <= 57)) || // digits
                 (keyCode == 32) || // space
                 (keyCode == 13) || // enter
