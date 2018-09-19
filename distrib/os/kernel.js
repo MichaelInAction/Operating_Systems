@@ -1,5 +1,10 @@
 ///<reference path="../globals.ts" />
 ///<reference path="queue.ts" />
+///<reference path="DeviceDriverKeyboard.ts" />
+///<reference path="shell.ts" />
+///<reference path="console.ts" />
+///<reference path="../host/control.ts" />
+///<reference path="../host/devices.ts" />
 /* ------------
      Kernel.ts
 
@@ -13,7 +18,7 @@
      ------------ */
 var TSOS;
 (function (TSOS) {
-    var Kernel = (function () {
+    var Kernel = /** @class */ (function () {
         function Kernel() {
         }
         //
@@ -75,10 +80,10 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
-            else if (_CPU.isExecuting) {
+            else if (_CPU.isExecuting) { // If there are no interrupts then run one CPU cycle if there is anything being processed. {
                 _CPU.cycle();
             }
-            else {
+            else { // If there are no interrupts and there is nothing being executed then just be idle. {
                 this.krnTrace("Idle");
             }
         };
@@ -113,6 +118,13 @@ var TSOS;
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
+                    _Console.init();
+                    _DrawingContext.fillStyle = 'rgb(0,0,255)';
+                    _DrawingContext.fillRect(0, 0, _Canvas.width, _Canvas.height);
+                    _StdOut.putText("There has been an error");
+                    _Console.advanceLine();
+                    _StdOut.putText("Please reboot.");
+                    this.krnShutdown();
             }
         };
         Kernel.prototype.krnTimerISR = function () {
@@ -158,6 +170,6 @@ var TSOS;
             this.krnShutdown();
         };
         return Kernel;
-    })();
+    }());
     TSOS.Kernel = Kernel;
 })(TSOS || (TSOS = {}));

@@ -368,13 +368,7 @@ module TSOS {
         }
 
         public shellBSOD() {
-          _Console.init();
-          _DrawingContext.fillStyle = 'rgb(0,0,255)'
-          _DrawingContext.fillRect(0, 0, _Canvas.width, _Canvas.height);
-          _StdOut.putText("There has been an error");
-          _Console.advanceLine();
-          _StdOut.putText("Please reboot.");
-          _Kernel.krnShutdown();
+          _Kernel.krnInterruptHandler("INVALID_IRQ");
         }
 
         public checkTime() {

@@ -1,5 +1,10 @@
 ///<reference path="../globals.ts" />
 ///<reference path="queue.ts" />
+///<reference path="DeviceDriverKeyboard.ts" />
+///<reference path="shell.ts" />
+///<reference path="console.ts" />
+///<reference path="../host/control.ts" />
+///<reference path="../host/devices.ts" />
 
 /* ------------
      Kernel.ts
@@ -128,6 +133,13 @@ module TSOS {
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
+                    _Console.init();
+                    _DrawingContext.fillStyle = 'rgb(0,0,255)'
+                    _DrawingContext.fillRect(0, 0, _Canvas.width, _Canvas.height);
+                    _StdOut.putText("There has been an error");
+                    _Console.advanceLine();
+                    _StdOut.putText("Please reboot.");
+                    this.krnShutdown();
             }
         }
 
