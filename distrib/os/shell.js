@@ -110,13 +110,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
                     this.execute(this.shellApology);
                 }
-                else { // It's just a bad command. {
+                else {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -216,13 +216,35 @@ var TSOS;
         };
         Shell.prototype.shellLoad = function () {
             var userInput = document.getElementById('taProgramInput').value;
+            var isValid = true;
             console.log(userInput);
             var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
+            if (userInput.trim().length == 0) {
+                isValid = false;
+                _StdOut.putText("No input detected");
+            }
             if (invalidCharacters.test(userInput)) {
+                isValid = false;
                 _StdOut.putText("Invalid character found");
             }
             else {
+                var splitInput = userInput.split(" ", 256);
+                for (var i = 0; i < splitInput.length; i++) {
+                    console.log(splitInput[i]);
+                    if (splitInput[i].length == 2) {
+                        _Memory.mainMemory[i] = splitInput[i];
+                    }
+                    else {
+                        isValid = false;
+                        _StdOut.putText("Invalid code found");
+                    }
+                }
+            }
+            if (isValid) {
                 _StdOut.putText("Input is valid");
+                for (var i = 0; i < _Memory.mainMemory[i].length; i++) {
+                    console.log(_Memory.mainMemory[i]);
+                }
             }
         };
         Shell.prototype.shellHelp = function (args) {

@@ -280,13 +280,36 @@ module TSOS {
 
         public shellLoad() {
           var userInput: string = document.getElementById('taProgramInput').value;
+          var isValid = true;
           console.log(userInput);
           var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
+          if (userInput.trim().length == 0) {
+            isValid = false;
+            _StdOut.putText("No input detected");
+          }
           if (invalidCharacters.test(userInput)) {
+            isValid = false;
             _StdOut.putText("Invalid character found");
           }
           else {
+            var splitInput = userInput.split(" ", 256);
+            for(var i = 0; i < splitInput.length; i++) {
+              console.log(splitInput[i]);
+              if(splitInput[i].length == 2) {
+                _Memory.mainMemory[i] = splitInput[i];
+              }
+              else {
+                isValid = false
+                _StdOut.putText("Invalid code found");
+
+              }
+            }
+          }
+          if(isValid) {
             _StdOut.putText("Input is valid");
+            for(var i = 0; i < _Memory.mainMemory[i].length; i++) {
+              console.log(_Memory.mainMemory[i]);
+            }
           }
         }
 

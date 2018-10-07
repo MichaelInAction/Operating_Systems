@@ -1,6 +1,6 @@
 ///<reference path="../globals.ts" />
 ///<reference path="queue.ts" />
-///<reference path="DeviceDriverKeyboard.ts" />
+///<reference path="deviceDriverKeyboard.ts" />
 ///<reference path="shell.ts" />
 ///<reference path="console.ts" />
 ///<reference path="../host/control.ts" />
@@ -80,10 +80,10 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
-            else if (_CPU.isExecuting) { // If there are no interrupts then run one CPU cycle if there is anything being processed. {
+            else if (_CPU.isExecuting) {
                 _CPU.cycle();
             }
-            else { // If there are no interrupts and there is nothing being executed then just be idle. {
+            else {
                 this.krnTrace("Idle");
             }
         };

@@ -1,6 +1,6 @@
 ///<reference path="../globals.ts" />
 ///<reference path="queue.ts" />
-///<reference path="DeviceDriverKeyboard.ts" />
+///<reference path="deviceDriverKeyboard.ts" />
 ///<reference path="shell.ts" />
 ///<reference path="console.ts" />
 ///<reference path="../host/control.ts" />
