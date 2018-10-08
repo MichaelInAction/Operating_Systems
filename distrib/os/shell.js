@@ -242,7 +242,7 @@ var TSOS;
             }
             if (isValid) {
                 _StdOut.putText("Input is valid");
-                for (var i = 0; i < _Memory.mainMemory[i].length; i++) {
+                for (var i = 0; i < _Memory.mainMemory.length; i++) {
                     console.log(_Memory.mainMemory[i]);
                 }
             }
