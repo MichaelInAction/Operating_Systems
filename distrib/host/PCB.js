@@ -6,8 +6,8 @@
      ------------ */
 var TSOS;
 (function (TSOS) {
-    var Memory = /** @class */ (function () {
-        function Memory(PID, lastMemLocation, xReg, yReg, zFlag) {
+    var PCB = /** @class */ (function () {
+        function PCB(PID, lastMemLocation, xReg, yReg, zFlag) {
             this.PID = PID;
             this.lastMemLocation = lastMemLocation;
             this.xReg = xReg;
@@ -19,20 +19,20 @@ var TSOS;
             this.yReg = 0;
             this.zFlag = 0;
         }
-        Memory.prototype.init = function (PID) {
+        PCB.prototype.init = function (PID) {
             this.PID = PID;
             this.lastMemLocation = 0;
             this.xReg = 0;
             this.yReg = 0;
             this.zFlag = 0;
         };
-        Memory.prototype.update = function (lastMemLocation, xReg, yReg, zFlag) {
+        PCB.prototype.update = function (lastMemLocation, xReg, yReg, zFlag) {
             this.lastMemLocation = 0;
             this.xReg = 0;
             this.yReg = 0;
             this.zFlag = 0;
         };
-        return Memory;
+        return PCB;
     }());
-    TSOS.Memory = Memory;
+    TSOS.PCB = PCB;
 })(TSOS || (TSOS = {}));

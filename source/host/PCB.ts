@@ -8,7 +8,7 @@
 
 module TSOS {
 
-    export class Memory {
+    export class PCB {
 
         constructor(public PID,
                     public lastMemLocation,
