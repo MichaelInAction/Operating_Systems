@@ -69,7 +69,6 @@
              tabindex="2"
              onclick="TSOS.Control.hostBtnReset_click(this);">
    </div>
-
    <div id="divTaskBar" onload="checkTime()">
      <script>
       //Get the date and time for the task bar
@@ -81,37 +80,80 @@
      </script>
      <div id="taskBarDate"></div><div id="taskBarStatus"></div>
    </div>
+   <div id="divCentral" style="">
+     <div id="divLeft" style="margin:4px; width:500px; height:500px; float: left;">
+       <div id="divConsole">
+          <canvas id="display"
+                  width="500px"
+                  height="500px"
+                  tabindex="3">
+          </canvas>
+       </div>
+     </div>
 
-   <div id="divConsole" style="margin:4px; width:500px; height:500px; float:left;">
-      <canvas id="display"
-              width="500px"
-              height="500px"
-              tabindex="3">
-      </canvas>
-   </div>
+     <div id="divMiddle">
+       <div id="divLog">
+          <label>
+             Host Log
+             <br>
+             <textarea name="taHostLog"
+                       id  ="taHostLog"
+                       rows="26"
+                       cols="48"
+             ></textarea>
+          </label>
+       </div>
 
-   <div id="divLog" style="margin-left:520px;">
-      <label>
-         Host Log
-         <br>
-         <textarea name="taHostLog"
-                   id  ="taHostLog"
-                   rows="26"
-                   cols="48"
-         ></textarea>
-      </label>
-   </div>
+       <div id="divUserProgramInput">
+          <label>
+             User Program Input
+             <br>
+             <textarea name="taProgramInput"
+                       id  ="taProgramInput"
+                       rows="8"
+                       cols="48"
+             ></textarea>
+          </label>
+       </div>
+     </div>
 
-   <div id="divUserProgramInput" style="margin-left:520px;">
-      <label>
-         User Program Input
-         <br>
-         <textarea name="taProgramInput"
-                   id  ="taProgramInput"
-                   rows="8"
-                   cols="48"
-         ></textarea>
-      </label>
+     <div id="divRight">
+       <div id="divMemory">
+         <label>
+           Memory
+           <br>
+           <textarea name="taProgramInput"
+                     id  ="taProgramInput"
+                     rows="8"
+                     cols="48"
+           ></textarea>
+         </label>
+       </div>
+
+       <div id="divCPU">
+         <label>
+           CPU
+           <br>
+           <textarea name="taProgramInput"
+                     id  ="taProgramInput"
+                     rows="8"
+                     cols="48"
+           ></textarea>
+         </label>
+       </div>
+
+       <div id="divPCB">
+         <label>
+           PCB
+           <br>
+           <textarea name="taProgramInput"
+                     id  ="taProgramInput"
+                     rows="8"
+                     cols="48"
+           ></textarea>
+         </label>
+       </div>
+     </div>
    </div>
 </div>
 

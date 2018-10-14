@@ -38,6 +38,17 @@ h3 {
   cursor: default;
 }
 
+#divCentral {
+  background-color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  display: block;
+}
+
+#divCentral > div{
+  float:left;
+  padding: 10px;
+}
+
 #divTaskBar {
   background-color: rgba(255, 255, 255, 0.8);
   border: 2px solid black;
