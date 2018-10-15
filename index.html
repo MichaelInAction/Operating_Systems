@@ -34,7 +34,7 @@
    <!-- Other Routines -->
    <script type="text/javascript" src="distrib/utils.js"></script>
    <!-- Uncomment the line below to enable GLaDOS testing. -->
-   <script type="text/javascript" src="http://alanclasses.github.io/TSOS/test/glados-ip1.js"></script>
+   <script type="text/javascript" src="http://alanclasses.github.io/TSOS/test/glados-ip2.js"></script>
 
 </head>
 
@@ -100,6 +100,7 @@
                        id  ="taHostLog"
                        rows="26"
                        cols="48"
+                       readonly
              ></textarea>
           </label>
        </div>
@@ -122,35 +123,78 @@
          <label>
            Memory
            <br>
-           <textarea name="taProgramInput"
-                     id  ="taProgramInput"
-                     rows="8"
-                     cols="48"
-           ></textarea>
+           <textarea name="taMemory"
+                     id  ="taMemory"
+                     rows="16"
+                     cols="47"
+                     readonly
+           >00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</textarea>
          </label>
        </div>
 
        <div id="divCPU">
-         <label>
-           CPU
-           <br>
-           <textarea name="taProgramInput"
-                     id  ="taProgramInput"
-                     rows="8"
-                     cols="48"
-           ></textarea>
-         </label>
+        <label>
+          CPU
+          <br>
+          <table name="taCPU"
+                 id  ="taCPU">
+            <tr>
+              <th>PC</th>
+              <th>IR</th>
+              <th>Acc</th>
+              <th>X Reg</th>
+              <th>Y Reg</th>
+              <th>Z Flag</th>
+            </tr>
+            <tr>
+              <td id="taPC">--</td>
+              <td id="taIR">--</td>
+              <td id="taAcc">--</td>
+              <td id="taX">--</td>
+              <td id="taY">--</td>
+              <td id="taZ">--</td>
+            </tr>
+          </table>
+        </label>
        </div>
 
        <div id="divPCB">
          <label>
            PCB
            <br>
-           <textarea name="taProgramInput"
-                     id  ="taProgramInput"
-                     rows="8"
-                     cols="48"
-           ></textarea>
+           <table name="taPCB"
+                  id  ="taPCB">
+             <tr>
+               <th>PID</th>
+               <th>State</th>
+               <th>PC</th>
+               <th>IR</th>
+               <th>Acc</th>
+               <th>X Reg</th>
+               <th>Y Reg</th>
+               <th>Z Flag</th>
+             </tr>
+             <tr>
+               <td id="PCBFooter" colspan="8">
+                 No Programs Loaded
+               </td>
+             </tr>
+           </table>
          </label>
        </div>
      </div>

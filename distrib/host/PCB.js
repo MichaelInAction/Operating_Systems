@@ -7,30 +7,32 @@
 var TSOS;
 (function (TSOS) {
     var PCB = /** @class */ (function () {
-        function PCB(PID, lastMemLocation, xReg, yReg, zFlag) {
+        function PCB(PID, State, PC, IR, Acc, xReg, yReg, zFlag) {
             this.PID = PID;
-            this.lastMemLocation = lastMemLocation;
+            this.State = State;
+            this.PC = PC;
+            this.IR = IR;
+            this.Acc = Acc;
             this.xReg = xReg;
             this.yReg = yReg;
             this.zFlag = zFlag;
             this.PID = PID;
-            this.lastMemLocation = 0;
-            this.xReg = 0;
-            this.yReg = 0;
-            this.zFlag = 0;
+            this.State = "New";
+            this.PC = "00";
+            this.IR = IR;
+            this.Acc = "00";
+            this.xReg = "00";
+            this.yReg = "00";
+            this.zFlag = "00";
         }
-        PCB.prototype.init = function (PID) {
-            this.PID = PID;
-            this.lastMemLocation = 0;
-            this.xReg = 0;
-            this.yReg = 0;
-            this.zFlag = 0;
-        };
-        PCB.prototype.update = function (lastMemLocation, xReg, yReg, zFlag) {
-            this.lastMemLocation = 0;
-            this.xReg = 0;
-            this.yReg = 0;
-            this.zFlag = 0;
+        PCB.prototype.update = function (State, PC, IR, Acc, xReg, yReg, zFlag) {
+            this.State = State;
+            this.PC = PC;
+            this.IR = IR;
+            this.Acc = Acc;
+            this.xReg = xReg;
+            this.yReg = yReg;
+            this.zFlag = zFlag;
         };
         return PCB;
     }());

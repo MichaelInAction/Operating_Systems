@@ -3,6 +3,7 @@
 ///<reference path="shellCommand.ts" />
 ///<reference path="userCommand.ts" />
 ///<reference path="kernel.ts" />
+///<reference path="../host/PCB.ts" />
 
 
 /* ------------
@@ -307,9 +308,10 @@ module TSOS {
           }
           if(isValid) {
             _StdOut.putText("Input is valid");
-            for(var i = 0; i < _Memory.mainMemory.length; i++) {
-              console.log(_Memory.mainMemory[i]);
-            }
+            document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
+            var newPCB = new PCB("00", "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
+            _Ready_Queue.enqueue(newPCB);
+            document.getElementById("PCBFooter").hidden = true;
           }
         }
 

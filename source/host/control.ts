@@ -75,6 +75,11 @@ module TSOS {
             var taLog = <HTMLInputElement> document.getElementById("taHostLog");
             taLog.value = str + taLog.value;
 
+            document.getElementById("taPC").innerHTML = "" + _CPU.PC;
+            document.getElementById("taAcc").innerHTML = "" + _CPU.Acc;
+            document.getElementById("taX").innerHTML = "" + _CPU.Xreg;
+            document.getElementById("taY").innerHTML = "" + _CPU.Yreg;
+            document.getElementById("taZ").innerHTML = "" + _CPU.Zflag;
             // TODO in the future: Optionally update a log database or some streaming service.
         }
 
@@ -98,6 +103,7 @@ module TSOS {
             _CPU.init();       //       There's more to do, like dealing with scheduling and such, but this would be a start. Pretty cool.
             _Memory = new Memory();
             _Memory.init();
+            _Ready_Queue = new Queue();
             // ... then set the host clock pulse ...
             _hardwareClockID = setInterval(Devices.hostClockPulse, CPU_CLOCK_INTERVAL);
             // .. and call the OS Kernel Bootstrap routine.

@@ -11,30 +11,31 @@ module TSOS {
     export class PCB {
 
         constructor(public PID,
-                    public lastMemLocation,
+                    public State,
+                    public PC,
+                    public IR,
+                    public Acc,
                     public xReg,
                     public yReg,
                     public zFlag) {
           this.PID = PID;
-          this.lastMemLocation = 0;
-          this.xReg = 0;
-          this.yReg = 0;
-          this.zFlag = 0;
+          this.State = "New";
+          this.PC = "00";
+          this.IR = IR;
+          this.Acc = "00";
+          this.xReg = "00";
+          this.yReg = "00";
+          this.zFlag = "00";
         }
 
-        public init(PID): void {
-          this.PID = PID;
-          this.lastMemLocation = 0;
-          this.xReg = 0;
-          this.yReg = 0;
-          this.zFlag = 0;
-        }
-
-        public update(lastMemLocation, xReg, yReg, zFlag): void {
-          this.lastMemLocation = 0;
-          this.xReg = 0;
-          this.yReg = 0;
-          this.zFlag = 0;
+        public update(State, PC, IR, Acc, xReg, yReg, zFlag): void {
+          this.State = State;
+          this.PC = PC;
+          this.IR = IR;
+          this.Acc = Acc;
+          this.xReg = xReg;
+          this.yReg = yReg;
+          this.zFlag = zFlag;
         }
     }
 }
