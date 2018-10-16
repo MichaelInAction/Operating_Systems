@@ -4,6 +4,7 @@
 ///<reference path="memory.ts" />
 ///<reference path="devices.ts" />
 ///<reference path="../os/kernel.ts" />
+///<reference path="../os/memoryManager.ts" />
 
 /* ------------
      Control.ts
@@ -129,7 +130,7 @@ module TSOS {
             _CPU.init();       //       There's more to do, like dealing with scheduling and such, but this would be a start. Pretty cool.
             _Memory = new Memory();
             _Memory.init();
-            _Ready_Queue = new Queue();
+            _MemoryManager = new MemoryManager();
             // ... then set the host clock pulse ...
             _hardwareClockID = setInterval(Devices.hostClockPulse, CPU_CLOCK_INTERVAL);
             // .. and call the OS Kernel Bootstrap routine.

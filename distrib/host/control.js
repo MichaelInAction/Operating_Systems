@@ -4,6 +4,7 @@
 ///<reference path="memory.ts" />
 ///<reference path="devices.ts" />
 ///<reference path="../os/kernel.ts" />
+///<reference path="../os/memoryManager.ts" />
 /* ------------
      Control.ts
 
@@ -112,7 +113,7 @@ var TSOS;
             _CPU.init(); //       There's more to do, like dealing with scheduling and such, but this would be a start. Pretty cool.
             _Memory = new TSOS.Memory();
             _Memory.init();
-            _Ready_Queue = new TSOS.Queue();
+            _MemoryManager = new TSOS.MemoryManager();
             // ... then set the host clock pulse ...
             _hardwareClockID = setInterval(TSOS.Devices.hostClockPulse, CPU_CLOCK_INTERVAL);
             // .. and call the OS Kernel Bootstrap routine.

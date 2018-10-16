@@ -296,20 +296,14 @@ module TSOS {
             var splitInput = userInput.split(" ", 256);
             for(var i = 0; i < splitInput.length; i++) {
               console.log(splitInput[i]);
-              if(splitInput[i].length == 2) {
-                _Memory.mainMemory[i] = splitInput[i];
-              }
-              else {
+              if(splitInput[i].length != 2) {
                 isValid = false
                 _StdOut.putText("Invalid code found");
-
               }
-            }
-            for(var i = splitInput.length; i < 256; i++) {
-              _Memory.mainMemory[i] = "00";
             }
           }
           if(isValid) {
+            _MemoryManager.loadInMainMemory(userInput);
             _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
             _PCB = new TSOS.PCB("" + currentPID, "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
             currentPID = currentPID + 1;
