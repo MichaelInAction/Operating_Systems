@@ -75,11 +75,37 @@ module TSOS {
             var taLog = <HTMLInputElement> document.getElementById("taHostLog");
             taLog.value = str + taLog.value;
 
+            // Update UI Elements
+            // Update Memory UI
+            document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
+            // Update CPU UI
             document.getElementById("taPC").innerHTML = "" + _CPU.PC;
             document.getElementById("taAcc").innerHTML = "" + _CPU.Acc;
             document.getElementById("taX").innerHTML = "" + _CPU.Xreg;
             document.getElementById("taY").innerHTML = "" + _CPU.Yreg;
             document.getElementById("taZ").innerHTML = "" + _CPU.Zflag;
+            // Update PCB UI
+            if(_PCB) {
+              document.getElementById("PCBPID").innerHTML = "" + _PCB.PID;
+              document.getElementById("PCBState").innerHTML = "" + _PCB.State;
+              document.getElementById("PCBPC").innerHTML = "" + _PCB.PC;
+              document.getElementById("PCBIR").innerHTML = "" + _PCB.IR;
+              document.getElementById("PCBAcc").innerHTML = "" + _PCB.Acc;
+              document.getElementById("PCBXreg").innerHTML = "" + _PCB.xReg;
+              document.getElementById("PCBYreg").innerHTML = "" + _PCB.yReg;
+              document.getElementById("PCBZflag").innerHTML = "" + _PCB.zFlag;
+            }
+            else {
+              document.getElementById("PCBPID").innerHTML = "--";
+              document.getElementById("PCBState").innerHTML = "--";
+              document.getElementById("PCBPC").innerHTML = "--";
+              document.getElementById("PCBIR").innerHTML = "--";
+              document.getElementById("PCBAcc").innerHTML = "--";
+              document.getElementById("PCBXreg").innerHTML = "--";
+              document.getElementById("PCBYreg").innerHTML = "--";
+              document.getElementById("PCBZflag").innerHTML = "--";
+            }
+
             // TODO in the future: Optionally update a log database or some streaming service.
         }
 

@@ -41,6 +41,52 @@ module TSOS {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
+            if(this.isExecuting) {
+              switch(_PCB.IR) {
+                case 'A9': {
+                  
+                }
+                case 'AD': {
+
+                }
+                case '8D': {
+
+                }
+                case '6D': {
+
+                }
+                case 'A2': {
+
+                }
+                case 'AE': {
+
+                }
+                case 'A0': {
+
+                }
+                case 'AC': {
+
+                }
+                case 'EA': {
+
+                }
+                case '00': {
+                  this.isExecuting = false;
+                }
+                case 'EC': {
+
+                }
+                case 'D0': {
+
+                }
+                case 'EE': {
+
+                }
+                case 'FF': {
+
+                }
+              }
+            }
         }
     }
 }

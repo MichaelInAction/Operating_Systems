@@ -246,11 +246,8 @@ var TSOS;
             }
             if (isValid) {
                 _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
-                document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
-                var newPCB = new TSOS.PCB("" + currentPID, "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
-                _Ready_Queue.enqueue(newPCB);
+                _PCB = new TSOS.PCB("" + currentPID, "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
                 currentPID = currentPID + 1;
-                document.getElementById("PCBFooter").hidden = true;
             }
         };
         Shell.prototype.shellHelp = function (args) {
