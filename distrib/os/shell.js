@@ -224,7 +224,7 @@ var TSOS;
                 isValid = false;
                 _StdOut.putText("No input detected");
             }
-            if (invalidCharacters.test(userInput)) {
+            else if (invalidCharacters.test(userInput)) {
                 isValid = false;
                 _StdOut.putText("Invalid character found");
             }
@@ -240,11 +240,15 @@ var TSOS;
                         _StdOut.putText("Invalid code found");
                     }
                 }
+                for (var i = splitInput.length; i < 256; i++) {
+                    _Memory.mainMemory[i] = "00";
+                }
             }
             if (isValid) {
                 _StdOut.putText("Input is valid");
                 document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
                 var newPCB = new TSOS.PCB("00", "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
+                _Ready_Queue.enqueue(newPCB);
                 document.getElementById("PCBFooter").hidden = true;
             }
         };

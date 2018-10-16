@@ -288,7 +288,7 @@ module TSOS {
             isValid = false;
             _StdOut.putText("No input detected");
           }
-          if (invalidCharacters.test(userInput)) {
+          else if (invalidCharacters.test(userInput)) {
             isValid = false;
             _StdOut.putText("Invalid character found");
           }
@@ -304,6 +304,9 @@ module TSOS {
                 _StdOut.putText("Invalid code found");
 
               }
+            }
+            for(var i = splitInput.length; i < 256; i++) {
+              _Memory.mainMemory[i] = "00";
             }
           }
           if(isValid) {
