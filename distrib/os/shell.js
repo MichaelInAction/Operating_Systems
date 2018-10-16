@@ -3,7 +3,7 @@
 ///<reference path="shellCommand.ts" />
 ///<reference path="userCommand.ts" />
 ///<reference path="kernel.ts" />
-///<reference path="../host/PCB.ts" />
+///<reference path="PCB.ts" />
 /* ------------
    Shell.ts
 
@@ -111,13 +111,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
                     this.execute(this.shellApology);
                 }
-                else {
+                else { // It's just a bad command. {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -245,10 +245,11 @@ var TSOS;
                 }
             }
             if (isValid) {
-                _StdOut.putText("Input is valid");
+                _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
                 document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
-                var newPCB = new TSOS.PCB("00", "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
+                var newPCB = new TSOS.PCB("" + currentPID, "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
                 _Ready_Queue.enqueue(newPCB);
+                currentPID = currentPID + 1;
                 document.getElementById("PCBFooter").hidden = true;
             }
         };
