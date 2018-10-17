@@ -69,6 +69,22 @@
              value="Reset"
              tabindex="2"
              onclick="TSOS.Control.hostBtnReset_click(this);">
+
+     <input type="button"
+            id = "btnSSToggle"
+            name="btnSSToggle"
+            class="normal_button"
+            value="Single Step"
+            tabindex="3"
+            onclick="TSOS.Utils.toggleSingleStepMode();">
+
+    <input type="button"
+           id = "btnSSExecute"
+           name="btnSSExecute"
+           class="normal_button"
+           value=">"
+           tabindex="4"
+           onclick="TSOS.Utils.executeSingleStep();">
    </div>
    <div id="divTaskBar" onload="checkTime()">
      <script>

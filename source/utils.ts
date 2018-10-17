@@ -55,5 +55,14 @@ module TSOS {
         public static HexToInt(hex): number {
           return parseInt(hex, 16);
         }
+
+        public static toggleSingleStepMode(): void {
+          singleStepMode = !singleStepMode;
+          console.log(singleStepMode);
+        }
+
+        public static executeSingleStep(): void {
+          executeSingleStep = true;
+        }
     }
 }

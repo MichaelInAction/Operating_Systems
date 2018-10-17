@@ -31,6 +31,8 @@ var _MemoryManager: TSOS.MemoryManager;
 var _PCB: TSOS.PCB;
 
 var currentPID: number = 0;
+var singleStepMode: boolean = false;
+var executeSingleStep: boolean = false;
 
 var _OSclock: number = 0;  // Page 23.
 

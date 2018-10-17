@@ -54,6 +54,13 @@ var TSOS;
         Utils.HexToInt = function (hex) {
             return parseInt(hex, 16);
         };
+        Utils.toggleSingleStepMode = function () {
+            singleStepMode = !singleStepMode;
+            console.log(singleStepMode);
+        };
+        Utils.executeSingleStep = function () {
+            executeSingleStep = true;
+        };
         return Utils;
     }());
     TSOS.Utils = Utils;

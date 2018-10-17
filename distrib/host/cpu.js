@@ -46,7 +46,7 @@ var TSOS;
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
-            if (this.isExecuting) {
+            if (this.isExecuting && ((!singleStepMode) || (singleStepMode && executeSingleStep))) {
                 _PCB.State = 'Executing';
                 this.IR = _PCB.IR;
                 switch (this.IR) {
@@ -198,6 +198,7 @@ var TSOS;
                         break;
                     }
                 }
+                executeSingleStep = false;
             }
         };
         return Cpu;
