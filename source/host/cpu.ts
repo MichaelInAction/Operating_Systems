@@ -167,6 +167,7 @@ module TSOS {
                       this.PC = this.PC - 256;
                     }
                   }
+                  this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
@@ -188,7 +189,7 @@ module TSOS {
                     _StdOut.putText("" + this.Yreg);
                   }
                   else if(this.Xreg === 2) {
-                    _MemoryManager.getStringFromMemory(this.Yreg);
+                    _StdOut.putText(_MemoryManager.getStringFromMemory(this.Yreg));
                   }
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);

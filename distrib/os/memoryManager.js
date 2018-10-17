@@ -37,7 +37,7 @@ var TSOS;
             _MemoryManager.storeValueInMemory(location, temp);
         };
         MemoryManager.prototype.getStringFromMemory = function (startingLocation) {
-            var location = TSOS.Utils.HexToInt(startingLocation);
+            var location = startingLocation;
             var returnString = "";
             while (_MemoryManager.getOpCode(location) !== "00") {
                 returnString = returnString +

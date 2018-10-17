@@ -46,7 +46,7 @@ module TSOS {
         }
 
         public getStringFromMemory(startingLocation): string {
-          var location: number = Utils.HexToInt(startingLocation);
+          var location: number = startingLocation;
           var returnString = "";
           while(_MemoryManager.getOpCode(location) !== "00"){
             returnString = returnString +
