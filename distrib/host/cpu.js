@@ -144,6 +144,17 @@ var TSOS;
                     }
                     case 'EC': {
                         this.PC++;
+                        var temp = _MemoryManager.getOpCode(this.PC);
+                        this.PC++;
+                        temp = _MemoryManager.getOpCode(this.PC) + temp;
+                        var tempNum = _MemoryManager.getValueFromMemory(temp);
+                        if (tempNum === this.Xreg) {
+                            this.Zflag = 1;
+                        }
+                        else {
+                            this.Zflag = 0;
+                        }
+                        this.PC++;
                         this.IR = _MemoryManager.getOpCode(this.PC);
                         _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                         break;
