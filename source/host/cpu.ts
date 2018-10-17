@@ -20,6 +20,7 @@ module TSOS {
     export class Cpu {
 
         constructor(public PC: number = 0,
+                    public IR: string = '00',
                     public Acc: number = 0,
                     public Xreg: number = 0,
                     public Yreg: number = 0,
@@ -30,6 +31,7 @@ module TSOS {
 
         public init(): void {
             this.PC = 0;
+            this.IR = '--';
             this.Acc = 0;
             this.Xreg = 0;
             this.Yreg = 0;
@@ -42,48 +44,107 @@ module TSOS {
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
             if(this.isExecuting) {
-              switch(_PCB.IR) {
+              _PCB.State = 'Executing';
+              this.IR = _PCB.IR;
+              switch(this.IR) {
                 case 'A9': {
-                  
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'AD': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case '8D': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case '6D': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'A2': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'AE': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'A0': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'AC': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'EA': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case '00': {
+                  console.log("Found a 00 at " + this.PC);
+                  _PCB.State = 'Finished';
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
                   this.isExecuting = false;
+                  break;
                 }
                 case 'EC': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'D0': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'EE': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
                 case 'FF': {
-
+                  this.PC++;
+                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  _PCB.PC = this.PC;
+                  _PCB.IR = this.IR;
+                  break;
                 }
               }
             }

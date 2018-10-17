@@ -18,12 +18,12 @@ var TSOS;
             this.zFlag = zFlag;
             this.PID = PID;
             this.State = "New";
-            this.PC = "00";
+            this.PC = 0;
             this.IR = IR;
-            this.Acc = "00";
-            this.xReg = "00";
-            this.yReg = "00";
-            this.zFlag = "00";
+            this.Acc = 0;
+            this.xReg = 0;
+            this.yReg = 0;
+            this.zFlag = 0;
         }
         PCB.prototype.update = function (State, PC, IR, Acc, xReg, yReg, zFlag) {
             this.State = State;

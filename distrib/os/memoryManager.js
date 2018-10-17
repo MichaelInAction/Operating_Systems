@@ -18,6 +18,9 @@ var TSOS;
                 _Memory.mainMemory[i] = "00";
             }
         };
+        MemoryManager.prototype.getOpCode = function (index) {
+            return _Memory.mainMemory[index];
+        };
         return MemoryManager;
     }());
     TSOS.MemoryManager = MemoryManager;

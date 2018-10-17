@@ -70,6 +70,7 @@ var TSOS;
             document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
             // Update CPU UI
             document.getElementById("taPC").innerHTML = "" + _CPU.PC;
+            document.getElementById("taIR").innerHTML = "" + _CPU.IR;
             document.getElementById("taAcc").innerHTML = "" + _CPU.Acc;
             document.getElementById("taX").innerHTML = "" + _CPU.Xreg;
             document.getElementById("taY").innerHTML = "" + _CPU.Yreg;

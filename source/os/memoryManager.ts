@@ -22,5 +22,9 @@ module TSOS {
             _Memory.mainMemory[i] = "00";
           }
         }
+
+        public getOpCode(index): string {
+          return _Memory.mainMemory[index];
+        }
     }
 }

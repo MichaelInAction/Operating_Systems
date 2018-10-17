@@ -67,6 +67,9 @@ var TSOS;
             // load
             sc = new TSOS.ShellCommand(this.shellLoad, "load", "- Validates the users code in the User Program Input area.");
             this.commandList[this.commandList.length] = sc;
+            // run <pid>
+            sc = new TSOS.ShellCommand(this.shellRun, "run", "<pid> - Runs the program with the given pid.");
+            this.commandList[this.commandList.length] = sc;
             // Blue Screen of Death
             sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "- Displays the Blue Screen of Death.");
             this.commandList[this.commandList.length] = sc;
@@ -241,8 +244,16 @@ var TSOS;
             if (isValid) {
                 _MemoryManager.loadInMainMemory(userInput);
                 _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
-                _PCB = new TSOS.PCB("" + currentPID, "New", "00", _Memory.mainMemory[0], "00", "00", "00", "00");
+                _PCB = new TSOS.PCB("" + currentPID, "New", 0, _Memory.mainMemory[0], 0, 0, 0, 0);
                 currentPID = currentPID + 1;
+            }
+        };
+        Shell.prototype.shellRun = function (args) {
+            if (_PCB.PID == args) {
+                _CPU.isExecuting = true;
+            }
+            else {
+                _StdOut.putText("Master Bruce, there is no program with that PID...");
             }
         };
         Shell.prototype.shellHelp = function (args) {
