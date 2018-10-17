@@ -1,4 +1,5 @@
 ///<reference path="../globals.ts" />
+///<reference path="../Utils.ts" />
 /* ------------
      memoryManager.ts
 
@@ -20,6 +21,9 @@ var TSOS;
         };
         MemoryManager.prototype.getOpCode = function (index) {
             return _Memory.mainMemory[index];
+        };
+        MemoryManager.prototype.getValueFromMemory = function (location) {
+            return TSOS.Utils.HexToInt(this.getOpCode(TSOS.Utils.HexToInt(location)));
         };
         return MemoryManager;
     }());

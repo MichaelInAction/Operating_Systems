@@ -1,4 +1,5 @@
 ///<reference path="../globals.ts" />
+///<reference path="../Utils.ts" />
 
 /* ------------
      memoryManager.ts
@@ -25,6 +26,10 @@ module TSOS {
 
         public getOpCode(index): string {
           return _Memory.mainMemory[index];
+        }
+
+        public getValueFromMemory(location): number {
+          return Utils.HexToInt(this.getOpCode(Utils.HexToInt(location)));
         }
     }
 }
