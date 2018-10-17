@@ -176,21 +176,17 @@ var TSOS;
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             //         Consider fixing that.
             if (text !== "") {
-                // find how long the
-                var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
-                if (offset > _Canvas.width) {
-                    var averageLetterWidth = offset / text.length;
-                    var lettersPerLine = _Canvas.width / averageLetterWidth;
-                    for (var i = 0; i < lettersPerLine % text.length - 1; i++) {
-                        var textToPrint = text.substring(0, lettersPerLine);
-                        _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, textToPrint);
-                        this.advanceLine();
-                        text = text.substring(lettersPerLine);
+                if (text) {
+                    for (var i = 0; i < text.length; i++) {
+                        var charToPrint = text.substring(i, i + 1);
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, charToPrint);
+                        if (this.currentXPosition + offset > _Canvas.width) {
+                            this.advanceLine();
+                        }
+                        _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, charToPrint);
+                        this.currentXPosition = this.currentXPosition + offset;
                     }
                 }
-                _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
-                // Move the current X position.
-                this.currentXPosition = this.currentXPosition + offset;
             }
         };
         Console.prototype.advanceLine = function () {
