@@ -134,8 +134,9 @@ module TSOS {
                   break;
                 }
                 case '00': {
-                  console.log("Found a 00 at " + this.PC);
                   _PCB.State = 'Finished';
+                  _StdOut.advanceLine();
+                  _StdOut.putText(">");
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   this.isExecuting = false;
                   break;
@@ -182,6 +183,13 @@ module TSOS {
                   break;
                 }
                 case 'FF': {
+                  if(this.Xreg === 1) {
+                    console.log("Working");
+                    _StdOut.putText("" + this.Yreg);
+                  }
+                  else if(this.Xreg === 2) {
+
+                  }
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
