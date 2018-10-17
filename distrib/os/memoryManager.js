@@ -28,6 +28,14 @@ var TSOS;
         MemoryManager.prototype.storeValueInMemory = function (location, value) {
             _Memory.mainMemory[TSOS.Utils.HexToInt(location)] = TSOS.Utils.IntToHex(value);
         };
+        MemoryManager.prototype.incrementByteInMemory = function (location) {
+            var temp = _MemoryManager.getValueFromMemory(location);
+            temp = temp + 1;
+            if (temp >= 256) {
+                temp = temp - 256;
+            }
+            _MemoryManager.storeValueInMemory(location, temp);
+        };
         return MemoryManager;
     }());
     TSOS.MemoryManager = MemoryManager;

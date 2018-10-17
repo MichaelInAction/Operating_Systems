@@ -35,5 +35,14 @@ module TSOS {
         public storeValueInMemory(location, value): void {
           _Memory.mainMemory[Utils.HexToInt(location)] = Utils.IntToHex(value);
         }
+
+        public incrementByteInMemory(location): void {
+          var temp = _MemoryManager.getValueFromMemory(location);
+          temp = temp + 1;
+          if(temp >= 256) {
+            temp = temp - 256;
+          }
+          _MemoryManager.storeValueInMemory(location, temp);
+        }
     }
 }
