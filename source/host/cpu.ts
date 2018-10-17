@@ -118,6 +118,11 @@ module TSOS {
                 }
                 case 'AC': {
                   this.PC++;
+                  var temp = _MemoryManager.getOpCode(this.PC);
+                  this.PC++;
+                  temp = _MemoryManager.getOpCode(this.PC) + temp;
+                  this.Yreg = _MemoryManager.getValueFromMemory(temp);
+                  this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
