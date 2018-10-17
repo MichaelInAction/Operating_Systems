@@ -161,6 +161,13 @@ var TSOS;
                     }
                     case 'D0': {
                         this.PC++;
+                        var distanceToBranch = TSOS.Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                        if (this.Zflag === 0) {
+                            this.PC = this.PC + distanceToBranch;
+                            if (this.PC >= 256) {
+                                this.PC = this.PC - 256;
+                            }
+                        }
                         this.IR = _MemoryManager.getOpCode(this.PC);
                         _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                         break;
