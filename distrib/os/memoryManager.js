@@ -36,6 +36,16 @@ var TSOS;
             }
             _MemoryManager.storeValueInMemory(location, temp);
         };
+        MemoryManager.prototype.getStringFromMemory = function (startingLocation) {
+            var location = TSOS.Utils.HexToInt(startingLocation);
+            var returnString = "";
+            while (_MemoryManager.getOpCode(location) !== "00") {
+                returnString = returnString +
+                    String.fromCharCode(TSOS.Utils.HexToInt(_MemoryManager.getOpCode(location)));
+                location++;
+            }
+            return returnString;
+        };
         return MemoryManager;
     }());
     TSOS.MemoryManager = MemoryManager;

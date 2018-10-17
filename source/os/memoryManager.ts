@@ -44,5 +44,16 @@ module TSOS {
           }
           _MemoryManager.storeValueInMemory(location, temp);
         }
+
+        public getStringFromMemory(startingLocation): string {
+          var location: number = Utils.HexToInt(startingLocation);
+          var returnString = "";
+          while(_MemoryManager.getOpCode(location) !== "00"){
+            returnString = returnString +
+              String.fromCharCode(Utils.HexToInt(_MemoryManager.getOpCode(location)));
+            location++;
+          }
+          return returnString;
+        }
     }
 }

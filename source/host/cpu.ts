@@ -188,7 +188,7 @@ module TSOS {
                     _StdOut.putText("" + this.Yreg);
                   }
                   else if(this.Xreg === 2) {
-
+                    _MemoryManager.getStringFromMemory(this.Yreg);
                   }
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
