@@ -5,6 +5,7 @@
 ///<reference path="devices.ts" />
 ///<reference path="../os/kernel.ts" />
 ///<reference path="../os/memoryManager.ts" />
+///<reference path="../utils.ts" />
 
 /* ------------
      Control.ts
@@ -80,22 +81,22 @@ module TSOS {
             // Update Memory UI
             document.getElementById("taMemory").value = _Memory.mainMemory.toString().replace(/\,/gi, " ");
             // Update CPU UI
-            document.getElementById("taPC").innerHTML = "" + _CPU.PC;
+            document.getElementById("taPC").innerHTML = "" + Utils.IntToHex(_CPU.PC);
             document.getElementById("taIR").innerHTML = "" + _CPU.IR;
-            document.getElementById("taAcc").innerHTML = "" + _CPU.Acc;
-            document.getElementById("taX").innerHTML = "" + _CPU.Xreg;
-            document.getElementById("taY").innerHTML = "" + _CPU.Yreg;
-            document.getElementById("taZ").innerHTML = "" + _CPU.Zflag;
+            document.getElementById("taAcc").innerHTML = "" + Utils.IntToHex(_CPU.Acc);
+            document.getElementById("taX").innerHTML = "" + Utils.IntToHex(_CPU.Xreg);
+            document.getElementById("taY").innerHTML = "" + Utils.IntToHex(_CPU.Yreg);
+            document.getElementById("taZ").innerHTML = "" + Utils.IntToHex(_CPU.Zflag);
             // Update PCB UI
             if(_PCB) {
-              document.getElementById("PCBPID").innerHTML = "" + _PCB.PID;
+              document.getElementById("PCBPID").innerHTML = "" + Utils.IntToHex(_PCB.PID);
               document.getElementById("PCBState").innerHTML = "" + _PCB.State;
-              document.getElementById("PCBPC").innerHTML = "" + _PCB.PC;
+              document.getElementById("PCBPC").innerHTML = "" + Utils.IntToHex(_PCB.PC);
               document.getElementById("PCBIR").innerHTML = "" + _PCB.IR;
-              document.getElementById("PCBAcc").innerHTML = "" + _PCB.Acc;
-              document.getElementById("PCBXreg").innerHTML = "" + _PCB.xReg;
-              document.getElementById("PCBYreg").innerHTML = "" + _PCB.yReg;
-              document.getElementById("PCBZflag").innerHTML = "" + _PCB.zFlag;
+              document.getElementById("PCBAcc").innerHTML = "" + Utils.IntToHex(_PCB.Acc);
+              document.getElementById("PCBXreg").innerHTML = "" + Utils.IntToHex(_PCB.xReg);
+              document.getElementById("PCBYreg").innerHTML = "" + Utils.IntToHex(_PCB.yReg);
+              document.getElementById("PCBZflag").innerHTML = "" + Utils.IntToHex(_PCB.zFlag);
             }
             else {
               document.getElementById("PCBPID").innerHTML = "--";

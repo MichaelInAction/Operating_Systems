@@ -43,5 +43,17 @@ module TSOS {
             }
             return retVal;
         }
+
+        public static IntToHex(integer): string {
+          var temp: string = integer.toString(16);
+          if(temp.length < 2){
+            temp = "0" + temp;
+          }
+          return temp;
+        }
+
+        public static HexToInt(hex): number {
+          return parseInt(hex, 16);
+        }
     }
 }

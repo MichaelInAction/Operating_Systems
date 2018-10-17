@@ -1,4 +1,5 @@
 ///<reference path="../globals.ts" />
+///<reference path="../utils.ts" />
 
 /* ------------
      CPU.ts
@@ -49,101 +50,89 @@ module TSOS {
               switch(this.IR) {
                 case 'A9': {
                   this.PC++;
+                  this.Acc = Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                  this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AD': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case '8D': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case '6D': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'A2': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AE': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'A0': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AC': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'EA': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case '00': {
                   console.log("Found a 00 at " + this.PC);
                   _PCB.State = 'Finished';
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   this.isExecuting = false;
                   break;
                 }
                 case 'EC': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'D0': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'EE': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'FF': {
                   this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
-                  _PCB.PC = this.PC;
-                  _PCB.IR = this.IR;
+                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
               }

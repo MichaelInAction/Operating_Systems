@@ -250,6 +250,12 @@ var TSOS;
         };
         Shell.prototype.shellRun = function (args) {
             if (_PCB.PID == args) {
+                _CPU.PC = _PCB.PC;
+                _CPU.IR = _PCB.IR;
+                _CPU.Acc = _PCB.Acc;
+                _CPU.Xreg = _PCB.xReg;
+                _CPU.Yreg = _PCB.yReg;
+                _CPU.Zflag = _PCB.zFlag;
                 _CPU.isExecuting = true;
             }
             else {

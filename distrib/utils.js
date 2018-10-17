@@ -44,6 +44,16 @@ var TSOS;
             }
             return retVal;
         };
+        Utils.IntToHex = function (integer) {
+            var temp = integer.toString(16);
+            if (temp.length < 2) {
+                temp = "0" + temp;
+            }
+            return temp;
+        };
+        Utils.HexToInt = function (hex) {
+            return parseInt(hex, 16);
+        };
         return Utils;
     }());
     TSOS.Utils = Utils;
