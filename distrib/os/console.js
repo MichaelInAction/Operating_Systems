@@ -148,6 +148,14 @@ var TSOS;
                     this.putText('=');
                     this.buffer += '=';
                 }
+                else if (chr === String.fromCharCode(355)) {
+                    this.putText('&');
+                    this.buffer += '&';
+                }
+                else if (chr === String.fromCharCode(357)) {
+                    this.putText('(');
+                    this.buffer += '(';
+                }
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
@@ -173,7 +181,7 @@ var TSOS;
                 if (offset > _Canvas.width) {
                     var averageLetterWidth = offset / text.length;
                     var lettersPerLine = _Canvas.width / averageLetterWidth;
-                    for (var i = 0; i < lettersPerLine % text.length - 2; i++) {
+                    for (var i = 0; i < lettersPerLine % text.length - 1; i++) {
                         var textToPrint = text.substring(0, lettersPerLine);
                         _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, textToPrint);
                         this.advanceLine();

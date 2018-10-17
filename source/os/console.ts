@@ -133,6 +133,12 @@ module TSOS {
                 } else if (chr === String.fromCharCode(187)) {
                   this.putText('=');
                   this.buffer += '=';
+                } else if (chr === String.fromCharCode(355)) {
+                  this.putText('&');
+                  this.buffer += '&';
+                } else if (chr === String.fromCharCode(357)) {
+                  this.putText('(');
+                  this.buffer += '(';
                 } else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...

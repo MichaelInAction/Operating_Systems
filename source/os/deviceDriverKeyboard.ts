@@ -71,8 +71,14 @@ module TSOS {
               } else if (keyCode == 54){
                 chr = "^";
                 _KernelInputQueue.enqueue(chr);
+              } else if (keyCode == 55){
+                chr = String.fromCharCode(355);
+                _KernelInputQueue.enqueue(chr);
               } else if (keyCode == 56){
                 chr = "*";
+                _KernelInputQueue.enqueue(chr);
+              } else if (keyCode == 57) {
+                chr = String.fromCharCode(357);
                 _KernelInputQueue.enqueue(chr);
               } else if (keyCode == 192){
                 chr = "~";
