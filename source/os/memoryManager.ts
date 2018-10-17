@@ -31,5 +31,9 @@ module TSOS {
         public getValueFromMemory(location): number {
           return Utils.HexToInt(this.getOpCode(Utils.HexToInt(location)));
         }
+
+        public storeValueInMemory(location, value): void {
+          _Memory.mainMemory[Utils.HexToInt(location)] = Utils.IntToHex(value);
+        }
     }
 }

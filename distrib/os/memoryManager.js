@@ -25,6 +25,9 @@ var TSOS;
         MemoryManager.prototype.getValueFromMemory = function (location) {
             return TSOS.Utils.HexToInt(this.getOpCode(TSOS.Utils.HexToInt(location)));
         };
+        MemoryManager.prototype.storeValueInMemory = function (location, value) {
+            _Memory.mainMemory[TSOS.Utils.HexToInt(location)] = TSOS.Utils.IntToHex(value);
+        };
         return MemoryManager;
     }());
     TSOS.MemoryManager = MemoryManager;

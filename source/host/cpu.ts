@@ -69,6 +69,11 @@ module TSOS {
                 }
                 case '8D': {
                   this.PC++;
+                  var temp = _MemoryManager.getOpCode(this.PC);
+                  this.PC++;
+                  temp = _MemoryManager.getOpCode(this.PC) + temp;
+                  _MemoryManager.storeValueInMemory(temp, this.Acc);
+                  this.PC++;
                   this.IR = _MemoryManager.getOpCode(this.PC);
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
