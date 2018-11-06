@@ -7,7 +7,7 @@
 var TSOS;
 (function (TSOS) {
     var Memory = /** @class */ (function () {
-        function Memory(mainMemory, partition1Start, partition1End, partition2Start, partition2End, partition3Start, partition3End) {
+        function Memory(mainMemory, partition1Start, partition1End, partition1Used, partition2Start, partition2End, partition2Used, partition3Start, partition3End, partition3Used) {
             if (mainMemory === void 0) { mainMemory = ["00", "00", "00", "00", "00", "00", "00", "00",
                 "00", "00", "00", "00", "00", "00", "00", "00",
                 "00", "00", "00", "00", "00", "00", "00", "00",
@@ -106,17 +106,23 @@ var TSOS;
                 "00", "00", "00", "00", "00", "00", "00", "00"]; }
             if (partition1Start === void 0) { partition1Start = 0; }
             if (partition1End === void 0) { partition1End = 255; }
+            if (partition1Used === void 0) { partition1Used = false; }
             if (partition2Start === void 0) { partition2Start = 256; }
             if (partition2End === void 0) { partition2End = 511; }
+            if (partition2Used === void 0) { partition2Used = false; }
             if (partition3Start === void 0) { partition3Start = 512; }
             if (partition3End === void 0) { partition3End = 767; }
+            if (partition3Used === void 0) { partition3Used = false; }
             this.mainMemory = mainMemory;
             this.partition1Start = partition1Start;
             this.partition1End = partition1End;
+            this.partition1Used = partition1Used;
             this.partition2Start = partition2Start;
             this.partition2End = partition2End;
+            this.partition2Used = partition2Used;
             this.partition3Start = partition3Start;
             this.partition3End = partition3End;
+            this.partition3Used = partition3Used;
         }
         Memory.prototype.init = function () {
             this.mainMemory = ["00", "00", "00", "00", "00", "00", "00", "00",
@@ -217,10 +223,13 @@ var TSOS;
                 "00", "00", "00", "00", "00", "00", "00", "00"];
             this.partition1Start = 0;
             this.partition1End = 255;
+            this.partition1Used = false;
             this.partition2Start = 256;
             this.partition2End = 511;
+            this.partition2Used = false;
             this.partition3Start = 512;
             this.partition3End = 767;
+            this.partition3Used = false;
         };
         Memory.prototype.clearMem = function () {
             this.mainMemory = ["00", "00", "00", "00", "00", "00", "00", "00",
@@ -319,6 +328,9 @@ var TSOS;
                 "00", "00", "00", "00", "00", "00", "00", "00",
                 "00", "00", "00", "00", "00", "00", "00", "00",
                 "00", "00", "00", "00", "00", "00", "00", "00"];
+            this.partition1Used = false;
+            this.partition2Used = false;
+            this.partition3Used = false;
         };
         return Memory;
     }());

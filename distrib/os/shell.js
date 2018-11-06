@@ -251,7 +251,8 @@ var TSOS;
             if (isValid) {
                 _MemoryManager.loadInMainMemory(userInput);
                 _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
-                _PCB = new TSOS.PCB("" + currentPID, "New", 0, _Memory.mainMemory[0], 0, 0, 0, 0);
+                var newPCB = new TSOS.PCB("" + currentPID, "New", 0, _Memory.mainMemory[0], 0, 0, 0, 0);
+                _ResidentList.enqueue(newPCB);
                 currentPID = currentPID + 1;
             }
         };

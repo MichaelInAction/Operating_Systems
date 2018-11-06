@@ -108,10 +108,13 @@ module TSOS {
                                          "00", "00", "00", "00", "00", "00", "00", "00"],
                     public partition1Start = 0,
                     public partition1End = 255,
+                    public partition1Used = false,
                     public partition2Start = 256,
                     public partition2End = 511,
+                    public partition2Used = false,
                     public partition3Start = 512,
-                    public partition3End = 767) {
+                    public partition3End = 767,
+                    public partition3Used = false) {
         }
 
         public init(): void {
@@ -213,10 +216,13 @@ module TSOS {
                                "00", "00", "00", "00", "00", "00", "00", "00"];
           this.partition1Start = 0;
           this.partition1End = 255;
+          this.partition1Used = false;
           this.partition2Start = 256;
           this.partition2End = 511;
+          this.partition2Used = false;
           this.partition3Start = 512;
           this.partition3End = 767;
+          this.partition3Used = false;
         }
 
         public clearMem(): void {
@@ -316,6 +322,9 @@ module TSOS {
                              "00", "00", "00", "00", "00", "00", "00", "00",
                              "00", "00", "00", "00", "00", "00", "00", "00",
                              "00", "00", "00", "00", "00", "00", "00", "00"];
+          this.partition1Used = false;
+          this.partition2Used = false;
+          this.partition3Used = false;
         }
     }
 }
