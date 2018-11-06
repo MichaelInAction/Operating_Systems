@@ -44,6 +44,9 @@ var TSOS;
             //
             // ... more?
             //
+            // Initialize the resideng list and ready queue
+            _ResidentList = new TSOS.Queue();
+            _ReadyQueue = new TSOS.Queue();
             // Enable the OS Interrupts.  (Not the CPU clock interrupt, as that is done in the hardware sim.)
             this.krnTrace("Enabling the interrupts.");
             this.krnEnableInterrupts();
@@ -80,10 +83,10 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
-            else if (_CPU.isExecuting) {
+            else if (_CPU.isExecuting) { // If there are no interrupts then run one CPU cycle if there is anything being processed. {
                 _CPU.cycle();
             }
-            else {
+            else { // If there are no interrupts and there is nothing being executed then just be idle. {
                 this.krnTrace("Idle");
             }
         };

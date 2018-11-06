@@ -62,6 +62,10 @@ var _StdOut;
 var _Console: TSOS.Console;
 var _OsShell: TSOS.Shell;
 
+// queues
+var _ResidentList: TSOS.Queue;
+var _ReadyQueue: TSOS.Queue;
+
 // At least this OS is not trying to kill you. (Yet.)
 var _SarcasticMode: boolean = false;
 

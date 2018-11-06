@@ -47,6 +47,9 @@ var _StdOut;
 // UI
 var _Console;
 var _OsShell;
+// queues
+var _ResidentList;
+var _ReadyQueue;
 // At least this OS is not trying to kill you. (Yet.)
 var _SarcasticMode = false;
 // Global Device Driver Objects - page 12
