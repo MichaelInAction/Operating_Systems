@@ -134,6 +134,10 @@ module TSOS {
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             // quantum <int> - let user set the Round Robin quantum
+            sc = new ShellCommand(this.shellQuantum,
+                                  "quantum",
+                                  "<int> - sets the round robin quantum (measured in CPU cycles).");
+            this.commandList[this.commandList.length] = sc;
 
             //
             // Display the initial prompt.
@@ -423,6 +427,11 @@ module TSOS {
         public shellClearMem() {
           _Memory.clearMem();
           _StdOut.putText("Memory Cleared");
+        }
+
+        public shellQuantum(args) {
+          quantum = args[0];
+          _StdOut.putText("Round Robin quantum has been updated to " + quantum);
         }
 
         public checkTime() {

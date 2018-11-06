@@ -80,6 +80,8 @@ var TSOS;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             // quantum <int> - let user set the Round Robin quantum
+            sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "<int> - sets the round robin quantum (measured in CPU cycles).");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -347,6 +349,10 @@ var TSOS;
         Shell.prototype.shellClearMem = function () {
             _Memory.clearMem();
             _StdOut.putText("Memory Cleared");
+        };
+        Shell.prototype.shellQuantum = function (args) {
+            quantum = args[0];
+            _StdOut.putText("Round Robin quantum has been updated to " + quantum);
         };
         Shell.prototype.checkTime = function () {
             this.dateTime = new Date();
