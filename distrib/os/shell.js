@@ -73,8 +73,13 @@ var TSOS;
             // Blue Screen of Death
             sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "- Displays the Blue Screen of Death.");
             this.commandList[this.commandList.length] = sc;
+            // clearmem - clear all memory partitions
+            sc = new TSOS.ShellCommand(this.shellClearMem, "clearmem", "- clears all memory partitions.");
+            this.commandList[this.commandList.length] = sc;
+            // runall - execute all programs at once
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
+            // quantum <int> - let user set the Round Robin quantum
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -338,6 +343,10 @@ var TSOS;
         };
         Shell.prototype.shellBSOD = function () {
             _Kernel.krnInterruptHandler("INVALID_IRQ");
+        };
+        Shell.prototype.shellClearMem = function () {
+            _Memory.clearMem();
+            _StdOut.putText("Memory Cleared");
         };
         Shell.prototype.checkTime = function () {
             this.dateTime = new Date();

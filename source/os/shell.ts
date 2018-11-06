@@ -125,8 +125,15 @@ module TSOS {
                                   "- Displays the Blue Screen of Death.");
             this.commandList[this.commandList.length] = sc;
 
+            // clearmem - clear all memory partitions
+            sc = new ShellCommand(this.shellClearMem,
+                                  "clearmem",
+                                  "- clears all memory partitions.");
+            this.commandList[this.commandList.length] = sc;
+            // runall - execute all programs at once
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
+            // quantum <int> - let user set the Round Robin quantum
 
             //
             // Display the initial prompt.
@@ -411,6 +418,11 @@ module TSOS {
 
         public shellBSOD() {
           _Kernel.krnInterruptHandler("INVALID_IRQ");
+        }
+
+        public shellClearMem() {
+          _Memory.clearMem();
+          _StdOut.putText("Memory Cleared");
         }
 
         public checkTime() {
