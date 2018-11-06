@@ -17,7 +17,8 @@ module TSOS {
                     public Acc,
                     public xReg,
                     public yReg,
-                    public zFlag) {
+                    public zFlag,
+                    public partition) {
           this.PID = PID;
           this.State = "New";
           this.PC = 0;
@@ -26,6 +27,7 @@ module TSOS {
           this.xReg = 0;
           this.yReg = 0;
           this.zFlag = 0;
+          this.partition = partition;
         }
 
         public update(State, PC, IR, Acc, xReg, yReg, zFlag): void {

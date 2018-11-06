@@ -7,7 +7,7 @@
 var TSOS;
 (function (TSOS) {
     var PCB = /** @class */ (function () {
-        function PCB(PID, State, PC, IR, Acc, xReg, yReg, zFlag) {
+        function PCB(PID, State, PC, IR, Acc, xReg, yReg, zFlag, partition) {
             this.PID = PID;
             this.State = State;
             this.PC = PC;
@@ -16,6 +16,7 @@ var TSOS;
             this.xReg = xReg;
             this.yReg = yReg;
             this.zFlag = zFlag;
+            this.partition = partition;
             this.PID = PID;
             this.State = "New";
             this.PC = 0;
@@ -24,6 +25,7 @@ var TSOS;
             this.xReg = 0;
             this.yReg = 0;
             this.zFlag = 0;
+            this.partition = partition;
         }
         PCB.prototype.update = function (State, PC, IR, Acc, xReg, yReg, zFlag) {
             this.State = State;

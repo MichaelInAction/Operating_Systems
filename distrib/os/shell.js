@@ -226,34 +226,37 @@ var TSOS;
             _StdOut.putText("All Members of the Justice League are contained");
         };
         Shell.prototype.shellLoad = function () {
-            var userInput = document.getElementById('taProgramInput').value;
-            var isValid = true;
-            console.log(userInput);
-            var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
-            if (userInput.trim().length == 0) {
-                isValid = false;
-                _StdOut.putText("No input detected");
-            }
-            else if (invalidCharacters.test(userInput)) {
-                isValid = false;
-                _StdOut.putText("Invalid character found");
-            }
-            else {
-                var splitInput = userInput.split(" ", 256);
-                for (var i = 0; i < splitInput.length; i++) {
-                    console.log(splitInput[i]);
-                    if (splitInput[i].length != 2) {
-                        isValid = false;
-                        _StdOut.putText("Invalid code found");
+            if (!_Memory.partition1Used || !_Memory.partition2Used || !_Memory.partition3Used) {
+                var userInput = document.getElementById('taProgramInput').value;
+                var isValid = true;
+                console.log(userInput);
+                var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
+                if (userInput.trim().length == 0) {
+                    isValid = false;
+                    _StdOut.putText("No input detected");
+                }
+                else if (invalidCharacters.test(userInput)) {
+                    isValid = false;
+                    _StdOut.putText("Invalid character found");
+                }
+                else {
+                    var splitInput = userInput.split(" ", 256);
+                    for (var i = 0; i < splitInput.length; i++) {
+                        console.log(splitInput[i]);
+                        if (splitInput[i].length != 2) {
+                            isValid = false;
+                            _StdOut.putText("Invalid code found");
+                        }
                     }
                 }
+                if (isValid) {
+                    _MemoryManager.loadInMainMemory(userInput);
+                    _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
+                    currentPID = currentPID + 1;
+                }
             }
-            if (isValid) {
-                _MemoryManager.loadInMainMemory(userInput);
-                _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
-                var newPCB = new TSOS.PCB("" + currentPID, "New", 0, _Memory.mainMemory[0], 0, 0, 0, 0);
-                _ResidentList.enqueue(newPCB);
-                currentPID = currentPID + 1;
+            else {
+                _StdOut.putText("Memory partitions are full!");
             }
         };
         Shell.prototype.shellRun = function (args) {

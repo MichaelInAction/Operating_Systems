@@ -11,13 +11,30 @@ var TSOS;
         function MemoryManager() {
         }
         MemoryManager.prototype.loadInMainMemory = function (programToLoad) {
+            var partition;
+            if (!_Memory.partition1Used) {
+                partition = 1;
+                _Memory.partition1Used = true;
+            }
+            else if (!_Memory.partition2Used) {
+                partition = 2;
+                _Memory.partition2Used = true;
+            }
+            else {
+                partition = 3;
+                _Memory.partition3Used = true;
+            }
             var splitInput = programToLoad.split(" ", 256);
+            _StdOut.putText("Partition " + partition);
             for (var i = 0; i < splitInput.length; i++) {
-                _Memory.mainMemory[i] = splitInput[i];
+                console.log(splitInput[i]);
+                _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
             }
             for (var i = splitInput.length; i < 256; i++) {
-                _Memory.mainMemory[i] = "00";
+                _Memory.mainMemory[((partition - 1) * 256) + i] = "00";
             }
+            var newPCB = new TSOS.PCB("" + currentPID, "New", 0, _Memory.mainMemory[(partition - 1) * 256], 0, 0, 0, 0, partition);
+            _ResidentList.enqueue(newPCB);
         };
         MemoryManager.prototype.getOpCode = function (index) {
             return _Memory.mainMemory[index];
