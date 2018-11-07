@@ -204,8 +204,24 @@ var TSOS;
                         break;
                     }
                 }
+                if (this.PC > 255 || this.PC < 0) {
+                    console.log("Memory out of bounds error");
+                    _StdOut.putText("The process has attempted to access memory outside of the partition. The process has been stopped");
+                    _MemoryManager.clearMemoryPartition(_PCB.partition);
+                    _PCB = null;
+                    if (_ReadyQueue.getSize() <= 0) {
+                        this.isExecuting = false;
+                        _StdOut.advanceLine();
+                        _StdOut.putText(">");
+                    }
+                    else {
+                        _CPUScheduler.contextSwitch();
+                    }
+                }
+                else {
+                    _CPUScheduler.step();
+                }
                 executeSingleStep = false;
-                _CPUScheduler.step();
             }
         };
         return Cpu;
