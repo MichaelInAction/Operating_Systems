@@ -77,26 +77,60 @@ var TSOS;
             document.getElementById("taY").innerHTML = "" + TSOS.Utils.IntToHex(_CPU.Yreg);
             document.getElementById("taZ").innerHTML = "" + TSOS.Utils.IntToHex(_CPU.Zflag);
             // Update PCB UI
+            var temp = '';
+            var existingPCBs = false;
             if (_PCB) {
-                document.getElementById("PCBPID").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.PID);
-                document.getElementById("PCBState").innerHTML = "" + _PCB.State;
-                document.getElementById("PCBPC").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.PC);
-                document.getElementById("PCBIR").innerHTML = "" + _PCB.IR;
-                document.getElementById("PCBAcc").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.Acc);
-                document.getElementById("PCBXreg").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.xReg);
-                document.getElementById("PCBYreg").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.yReg);
-                document.getElementById("PCBZflag").innerHTML = "" + TSOS.Utils.IntToHex(_PCB.zFlag);
+                existingPCBs = true;
+                temp += '<tr><td>' + TSOS.Utils.IntToHex(_PCB.PID) + '</td>';
+                temp += '<td>' + _PCB.State + '</td>';
+                temp += '<td>' + TSOS.Utils.IntToHex(_PCB.PC) + '</td>';
+                temp += '<td>' + _PCB.IR + '</td>';
+                temp += '<td>' + TSOS.Utils.IntToHex(_PCB.Acc) + '</td>';
+                temp += '<td>' + TSOS.Utils.IntToHex(_PCB.xReg) + '</td>';
+                temp += '<td>' + TSOS.Utils.IntToHex(_PCB.yReg) + '</td>';
+                temp += '<td>' + TSOS.Utils.IntToHex(_PCB.zFlag) + '</td></tr>';
             }
-            else {
-                document.getElementById("PCBPID").innerHTML = "--";
-                document.getElementById("PCBState").innerHTML = "--";
-                document.getElementById("PCBPC").innerHTML = "--";
-                document.getElementById("PCBIR").innerHTML = "--";
-                document.getElementById("PCBAcc").innerHTML = "--";
-                document.getElementById("PCBXreg").innerHTML = "--";
-                document.getElementById("PCBYreg").innerHTML = "--";
-                document.getElementById("PCBZflag").innerHTML = "--";
+            if (_ReadyQueue) {
+                for (var i = 0; i < _ReadyQueue.getSize(); i++) {
+                    existingPCBs = true;
+                    var pcb = _ReadyQueue.dequeue();
+                    temp += '<tr><td>' + TSOS.Utils.IntToHex(pcb.PID) + '</td>';
+                    temp += '<td>' + pcb.State + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.PC) + '</td>';
+                    temp += '<td>' + pcb.IR + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.Acc) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.xReg) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.yReg) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.zFlag) + '</td></tr>';
+                    _ReadyQueue.enqueue(pcb);
+                }
             }
+            if (_ResidentList) {
+                for (var i = 0; i < _ResidentList.getSize(); i++) {
+                    existingPCBs = true;
+                    var pcb = _ResidentList.dequeue();
+                    temp += '<tr><td>' + TSOS.Utils.IntToHex(pcb.PID) + '</td>';
+                    temp += '<td>' + pcb.State + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.PC) + '</td>';
+                    temp += '<td>' + pcb.IR + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.Acc) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.xReg) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.yReg) + '</td>';
+                    temp += '<td>' + TSOS.Utils.IntToHex(pcb.zFlag) + '</td></tr>';
+                    _ResidentList.enqueue(pcb);
+                }
+            }
+            if (!existingPCBs) {
+                temp += '<tr><td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td>';
+                temp += '<td>--</td></tr>';
+            }
+            document.getElementById("taPCBBody").innerHTML = temp;
             // TODO in the future: Optionally update a log database or some streaming service.
         };
         //
