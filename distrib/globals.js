@@ -50,6 +50,8 @@ var _OsShell;
 // queues
 var _ResidentList;
 var _ReadyQueue;
+// CPU Scheduler
+var _CPUScheduler;
 // At least this OS is not trying to kill you. (Yet.)
 var _SarcasticMode = false;
 // Global Device Driver Objects - page 12

@@ -77,6 +77,8 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellClearMem, "clearmem", "- clears all memory partitions.");
             this.commandList[this.commandList.length] = sc;
             // runall - execute all programs at once
+            sc = new TSOS.ShellCommand(this.shellRunAll, "runall", " - executes all programs at once.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             sc = new TSOS.ShellCommand(this.shellKill, "kill", "<id> - kills the process with the specified id.");
@@ -367,6 +369,25 @@ var TSOS;
             _MemoryManager.clearMemoryPartition(2);
             _MemoryManager.clearMemoryPartition(3);
             _StdOut.putText("Memory Cleared");
+        };
+        Shell.prototype.shellRunAll = function () {
+            if (_ResidentList.getSize() > 0) {
+                _PCB = _ResidentList.dequeue();
+                while (_ResidentList.getSize() > 0) {
+                    _ReadyQueue.enqueue(_ResidentList.dequeue());
+                }
+                _CPUScheduler.currentCount = 0;
+                _CPU.PC = _PCB.PC;
+                _CPU.IR = _PCB.IR;
+                _CPU.Acc = _PCB.Acc;
+                _CPU.Xreg = _PCB.xReg;
+                _CPU.Yreg = _PCB.yReg;
+                _CPU.Zflag = _PCB.zFlag;
+                _CPU.isExecuting = true;
+            }
+            else {
+                _StdOut.putText("There are no loaded programs");
+            }
         };
         Shell.prototype.shellQuantum = function (args) {
             quantum = args[0];

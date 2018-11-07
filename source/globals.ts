@@ -66,6 +66,9 @@ var _OsShell: TSOS.Shell;
 var _ResidentList: TSOS.Queue;
 var _ReadyQueue: TSOS.Queue;
 
+// CPU Scheduler
+var _CPUScheduler: TSOS.CPUScheduler;
+
 // At least this OS is not trying to kill you. (Yet.)
 var _SarcasticMode: boolean = false;
 

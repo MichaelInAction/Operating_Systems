@@ -134,13 +134,16 @@ module TSOS {
                   break;
                 }
                 case '00': {
-                  _PCB.State = 'Finished';
-                  _StdOut.advanceLine();
-                  _StdOut.putText(">");
-                  _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
-                  this.isExecuting = false;
-                  _MemoryManager.clearMemoryPartition(_PCB.partition);
-                  _PCB = null;
+                _MemoryManager.clearMemoryPartition(_PCB.partition);
+                _PCB = null;
+                  if(_ReadyQueue.getSize() <= 0) {
+                    this.isExecuting = false;
+                    _StdOut.advanceLine();
+                    _StdOut.putText(">");
+                  }
+                  else {
+                    _CPUScheduler.contextSwitch();
+                  }
                   break;
                 }
                 case 'EC': {
@@ -200,6 +203,7 @@ module TSOS {
                 }
               }
               executeSingleStep = false;
+              _CPUScheduler.step();
             }
         }
     }
