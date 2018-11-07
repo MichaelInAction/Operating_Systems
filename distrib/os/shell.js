@@ -229,7 +229,6 @@ var TSOS;
             if (!_Memory.partition1Used || !_Memory.partition2Used || !_Memory.partition3Used) {
                 var userInput = document.getElementById('taProgramInput').value;
                 var isValid = true;
-                console.log(userInput);
                 var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
                 if (userInput.trim().length == 0) {
                     isValid = false;
@@ -242,7 +241,6 @@ var TSOS;
                 else {
                     var splitInput = userInput.split(" ", 256);
                     for (var i = 0; i < splitInput.length; i++) {
-                        console.log(splitInput[i]);
                         if (splitInput[i].length != 2) {
                             isValid = false;
                             _StdOut.putText("Invalid code found");
@@ -260,7 +258,19 @@ var TSOS;
             }
         };
         Shell.prototype.shellRun = function (args) {
-            if (_PCB.PID == args) {
+            var PIDExists = false;
+            for (var i = 0; i < _ResidentList.getSize(); i++) {
+                _PCB = _ResidentList.dequeue();
+                if (_PCB.PID == args) {
+                    PIDExists = true;
+                    break;
+                }
+                else {
+                    _ResidentList.enqueue(_PCB);
+                    _PCB = null;
+                }
+            }
+            if (PIDExists) {
                 _CPU.PC = _PCB.PC;
                 _CPU.IR = _PCB.IR;
                 _CPU.Acc = _PCB.Acc;

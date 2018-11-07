@@ -330,7 +330,19 @@ module TSOS {
         }
 
         public shellRun(args) {
-          if(_PCB.PID == args){
+          var PIDExists = false;
+          for(var i = 0; i < _ResidentList.getSize(); i++) {
+            _PCB = _ResidentList.dequeue();
+            if(_PCB.PID == args) {
+              PIDExists = true;
+              break;
+            }
+            else {
+              _ResidentList.enqueue(_PCB);
+              _PCB = null;
+            }
+          }
+          if(PIDExists){
             _CPU.PC = _PCB.PC;
             _CPU.IR = _PCB.IR;
             _CPU.Acc = _PCB.Acc;
