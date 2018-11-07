@@ -141,6 +141,8 @@ var TSOS;
                         _StdOut.putText(">");
                         _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                         this.isExecuting = false;
+                        _MemoryManager.clearMemoryPartition(_PCB.partition);
+                        _PCB = null;
                         break;
                     }
                     case 'EC': {

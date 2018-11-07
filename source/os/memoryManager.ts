@@ -70,5 +70,20 @@ module TSOS {
           }
           return returnString;
         }
+
+        public clearMemoryPartition(partition): void {
+          for(var i = (256 * (partition - 1)); i < ((256 * partition) - 1); i++) {
+            _Memory.mainMemory[i] = "00";
+          }
+          if(partition == 1) {
+            _Memory.partition1Used = false;
+          }
+          else if(partition == 2) {
+            _Memory.partition2Used = false;
+          }
+          else if(partition == 3) {
+            _Memory.partition3Used = false;
+          }
+        }
     }
 }

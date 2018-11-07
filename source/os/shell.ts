@@ -133,6 +133,10 @@ module TSOS {
             // runall - execute all programs at once
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
+            sc = new ShellCommand(this.shellKill,
+                                  "kill",
+                                  "<id> - kills the process with the specified id.");
+            this.commandList[this.commandList.length] = sc;
             // quantum <int> - let user set the Round Robin quantum
             sc = new ShellCommand(this.shellQuantum,
                                   "quantum",
@@ -439,13 +443,47 @@ module TSOS {
         }
 
         public shellClearMem() {
-          _Memory.clearMem();
+          _MemoryManager.clearMemoryPartition(1);
+          _MemoryManager.clearMemoryPartition(2);
+          _MemoryManager.clearMemoryPartition(3);
           _StdOut.putText("Memory Cleared");
         }
 
         public shellQuantum(args) {
           quantum = args[0];
           _StdOut.putText("Round Robin quantum has been updated to " + quantum);
+        }
+
+        public shellKill(args) {
+          var found = false;
+          var temp: TSOS.PCB;
+          for(var i = 0; i < _ResidentList.getSize(); i++) {
+            temp = _ResidentList.dequeue();
+            if(temp.PID == args) {
+              _MemoryManager.clearMemoryPartition(temp.partition);
+              found = true;
+            }
+            else {
+              _ResidentList.enqueue(temp);
+              temp = null;
+            }
+          }
+          for(var i = 0; i < _ReadyQueue.getSize(); i++) {
+            temp = _ReadyQueue.dequeue();
+            if(temp.PID == args) {
+              _MemoryManager.clearMemoryPartition(temp.partition);
+              found = true;
+            }
+            else {
+              _ReadyQueue.enqueue(temp);
+              temp = null;
+            }
+          }
+          if(found) {
+            _StdOut.putText("Process with PID " + args + " has been killed");
+          } else {
+            _StdOut.putText("That PID is not associated with an existing process");
+          }
         }
 
         public checkTime() {
