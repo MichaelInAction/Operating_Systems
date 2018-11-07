@@ -14,12 +14,10 @@ module TSOS {
         }
 
         public contextSwitch() {
+          console.log("Context Switch");
           if(_PCB != null){
             _PCB.State = "Waiting";
             _ReadyQueue.enqueue(_PCB);
-          }
-          else {
-            console.log("not queueing the PCB");
           }
           _PCB = _ReadyQueue.dequeue();
           _CPU.PC = _PCB.PC;
