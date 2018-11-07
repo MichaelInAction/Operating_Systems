@@ -80,6 +80,8 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellRunAll, "runall", " - executes all programs at once.");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
+            sc = new TSOS.ShellCommand(this.shellPS, "ps", " - lists the running processes and their IDs.");
+            this.commandList[this.commandList.length] = sc;
             // kill <id> - kills the specified process id.
             sc = new TSOS.ShellCommand(this.shellKill, "kill", "<id> - kills the process with the specified id.");
             this.commandList[this.commandList.length] = sc;
@@ -392,6 +394,24 @@ var TSOS;
         Shell.prototype.shellQuantum = function (args) {
             quantum = args[0];
             _StdOut.putText("Round Robin quantum has been updated to " + quantum);
+        };
+        Shell.prototype.shellPS = function () {
+            if (_PCB != null) {
+                _StdOut.putText("PID: " + _PCB.PID);
+                _StdOut.advanceLine();
+            }
+            for (var i = 0; i < _ResidentList.getSize(); i++) {
+                var temp = _ResidentList.dequeue();
+                _StdOut.putText("PID: " + temp.PID);
+                _StdOut.advanceLine();
+                _ResidentList.enqueue(temp);
+            }
+            for (var i = 0; i < _ReadyQueue.getSize(); i++) {
+                var temp = _ReadyQueue.dequeue();
+                _StdOut.putText("PID: " + temp.PID);
+                _StdOut.advanceLine();
+                _ReadyQueue.enqueue(temp);
+            }
         };
         Shell.prototype.shellKill = function (args) {
             var found = false;

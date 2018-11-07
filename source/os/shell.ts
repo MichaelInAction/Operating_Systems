@@ -136,6 +136,10 @@ module TSOS {
                                   " - executes all programs at once.");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
+            sc = new ShellCommand(this.shellPS,
+                                  "ps",
+                                  " - lists the running processes and their IDs.");
+            this.commandList[this.commandList.length] = sc;
             // kill <id> - kills the specified process id.
             sc = new ShellCommand(this.shellKill,
                                   "kill",
@@ -476,6 +480,25 @@ module TSOS {
         public shellQuantum(args) {
           quantum = args[0];
           _StdOut.putText("Round Robin quantum has been updated to " + quantum);
+        }
+
+        public shellPS() {
+          if(_PCB != null) {
+            _StdOut.putText("PID: " + _PCB.PID);
+            _StdOut.advanceLine();
+          }
+          for(var i = 0; i < _ResidentList.getSize(); i++){
+            var temp = _ResidentList.dequeue();
+            _StdOut.putText("PID: " + temp.PID);
+            _StdOut.advanceLine();
+            _ResidentList.enqueue(temp);
+          }
+          for(var i = 0; i < _ReadyQueue.getSize(); i++){
+            var temp = _ReadyQueue.dequeue();
+            _StdOut.putText("PID: " + temp.PID);
+            _StdOut.advanceLine();
+            _ReadyQueue.enqueue(temp);
+          }
         }
 
         public shellKill(args) {
