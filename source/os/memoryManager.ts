@@ -44,11 +44,11 @@ module TSOS {
         }
 
         public getValueFromMemory(location): number {
-          return Utils.HexToInt(this.getOpCode(Utils.HexToInt(location)));
+          return Utils.HexToInt(this.getOpCode(location));
         }
 
         public storeValueInMemory(location, value): void {
-          _Memory.mainMemory[Utils.HexToInt(location)] = Utils.IntToHex(value);
+          _Memory.mainMemory[location] = Utils.IntToHex(value);
         }
 
         public incrementByteInMemory(location): void {

@@ -40,10 +40,10 @@ var TSOS;
             return _Memory.mainMemory[index];
         };
         MemoryManager.prototype.getValueFromMemory = function (location) {
-            return TSOS.Utils.HexToInt(this.getOpCode(TSOS.Utils.HexToInt(location)));
+            return TSOS.Utils.HexToInt(this.getOpCode(location));
         };
         MemoryManager.prototype.storeValueInMemory = function (location, value) {
-            _Memory.mainMemory[TSOS.Utils.HexToInt(location)] = TSOS.Utils.IntToHex(value);
+            _Memory.mainMemory[location] = TSOS.Utils.IntToHex(value);
         };
         MemoryManager.prototype.incrementByteInMemory = function (location) {
             var temp = _MemoryManager.getValueFromMemory(location);

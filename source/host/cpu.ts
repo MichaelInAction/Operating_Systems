@@ -50,86 +50,86 @@ module TSOS {
               switch(this.IR) {
                 case 'A9': {
                   this.PC++;
-                  this.Acc = Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                  this.Acc = Utils.HexToInt(_MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AD': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  this.Acc = _MemoryManager.getValueFromMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  this.Acc = _MemoryManager.getValueFromMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case '8D': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  _MemoryManager.storeValueInMemory(temp, this.Acc);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  _MemoryManager.storeValueInMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)), this.Acc);
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case '6D': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  this.Acc = this.Acc + _MemoryManager.getValueFromMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  this.Acc = this.Acc + _MemoryManager.getValueFromMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'A2': {
                   this.PC++;
-                  this.Xreg = Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                  this.Xreg = Utils.HexToInt(_MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AE': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  this.Xreg = _MemoryManager.getValueFromMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  this.Xreg = _MemoryManager.getValueFromMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'A0': {
                   this.PC++;
-                  this.Yreg = Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                  this.Yreg = Utils.HexToInt(_MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'AC': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  this.Yreg = _MemoryManager.getValueFromMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  this.Yreg = _MemoryManager.getValueFromMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'EA': {
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
@@ -143,10 +143,10 @@ module TSOS {
                 }
                 case 'EC': {
                   this.PC++
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  var tempNum = _MemoryManager.getValueFromMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  var tempNum = _MemoryManager.getValueFromMemory(Utils.HexToInt(temp) + (256 * (_PCB.partition - 1)));
                   if(tempNum === this.Xreg) {
                     this.Zflag = 1;
                   }
@@ -154,13 +154,13 @@ module TSOS {
                     this.Zflag = 0;
                   }
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'D0': {
                   this.PC++;
-                  var distanceToBranch = Utils.HexToInt(_MemoryManager.getOpCode(this.PC));
+                  var distanceToBranch = Utils.HexToInt(_MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))));
                   if(this.Zflag === 0) {
                     this.PC = this.PC + distanceToBranch;
                     if(this.PC >= 256) {
@@ -168,18 +168,18 @@ module TSOS {
                     }
                   }
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
                 case 'EE': {
                   this.PC++;
-                  var temp = _MemoryManager.getOpCode(this.PC);
+                  var temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  temp = _MemoryManager.getOpCode(this.PC) + temp;
-                  _MemoryManager.incrementByteInMemory(temp);
+                  temp = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1))) + temp;
+                  _MemoryManager.incrementByteInMemory(temp + (256 * (_PCB.partition - 1)));
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
@@ -189,10 +189,10 @@ module TSOS {
                     _StdOut.putText("" + this.Yreg);
                   }
                   else if(this.Xreg === 2) {
-                    _StdOut.putText(_MemoryManager.getStringFromMemory(this.Yreg));
+                    _StdOut.putText(_MemoryManager.getStringFromMemory(this.Yreg + (256 * (_PCB.partition - 1))));
                   }
                   this.PC++;
-                  this.IR = _MemoryManager.getOpCode(this.PC);
+                  this.IR = _MemoryManager.getOpCode(this.PC + (256 * (_PCB.partition - 1)));
                   _PCB.update(_PCB.State, this.PC, this.IR, this.Acc, this.Xreg, this.Yreg, this.Zflag);
                   break;
                 }
