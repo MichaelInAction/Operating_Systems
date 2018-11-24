@@ -27,7 +27,7 @@ var TSOS;
         };
         CPUScheduler.prototype.step = function () {
             this.currentCount = this.currentCount + 1;
-            if ((this.currentCount >= quantum) && (_ReadyQueue.getSize() > 0)) {
+            if (schedule === "rr" && ((this.currentCount >= quantum) && (_ReadyQueue.getSize() > 0))) {
                 this.contextSwitch();
                 this.currentCount = 0;
             }
