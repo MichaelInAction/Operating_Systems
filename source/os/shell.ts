@@ -150,6 +150,11 @@ module TSOS {
                                   "quantum",
                                   "<int> - sets the round robin quantum (measured in CPU cycles).");
             this.commandList[this.commandList.length] = sc;
+            // getSchedule - show the user what cpu scheduling algorithm is being used
+            sc = new ShellCommand(this.shellGetSchedule,
+                                  "getschedule",
+                                  " - Gets the current cpu scheduling algorithm.");
+            this.commandList[this.commandList.length] = sc;
 
             //
             // Display the initial prompt.
@@ -480,6 +485,20 @@ module TSOS {
         public shellQuantum(args) {
           quantum = args[0];
           _StdOut.putText("Round Robin quantum has been updated to " + quantum);
+        }
+
+        public shellGetSchedule() {
+          let currentSchedule = "";
+          if(schedule === "rr") {
+            currentSchedule = "Round Robin";
+          }
+          else if(schedule === "fcfs") {
+            currentSchedule = "First Come First Serve";
+          }
+          else if(schedule === "priority") {
+            currentSchedule = "Priority";
+          }
+          _StdOut.putText("The current CPU scheduling algorithm is " + currentSchedule);
         }
 
         public shellPS() {

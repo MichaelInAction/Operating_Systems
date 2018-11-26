@@ -88,6 +88,9 @@ var TSOS;
             // quantum <int> - let user set the Round Robin quantum
             sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "<int> - sets the round robin quantum (measured in CPU cycles).");
             this.commandList[this.commandList.length] = sc;
+            // getSchedule - show the user what cpu scheduling algorithm is being used
+            sc = new TSOS.ShellCommand(this.shellGetSchedule, "getschedule", " - Gets the current cpu scheduling algorithm.");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -127,13 +130,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
                     this.execute(this.shellApology);
                 }
-                else { // It's just a bad command. {
+                else {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -394,6 +397,19 @@ var TSOS;
         Shell.prototype.shellQuantum = function (args) {
             quantum = args[0];
             _StdOut.putText("Round Robin quantum has been updated to " + quantum);
+        };
+        Shell.prototype.shellGetSchedule = function () {
+            var currentSchedule = "";
+            if (schedule === "rr") {
+                currentSchedule = "Round Robin";
+            }
+            else if (schedule === "fcfs") {
+                currentSchedule = "First Come First Serve";
+            }
+            else if (schedule === "priority") {
+                currentSchedule = "Priority";
+            }
+            _StdOut.putText("The current CPU scheduling algorithm is " + currentSchedule);
         };
         Shell.prototype.shellPS = function () {
             if (_PCB != null) {
