@@ -88,8 +88,11 @@ var TSOS;
             // quantum <int> - let user set the Round Robin quantum
             sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "<int> - sets the round robin quantum (measured in CPU cycles).");
             this.commandList[this.commandList.length] = sc;
-            // getSchedule - show the user what cpu scheduling algorithm is being used
+            // getschedule - show the user what cpu scheduling algorithm is being used
             sc = new TSOS.ShellCommand(this.shellGetSchedule, "getschedule", " - Gets the current cpu scheduling algorithm.");
+            this.commandList[this.commandList.length] = sc;
+            // setschedule [rr, fcfs, priority] - sets the current scheduling algorithm to either round robin, first come first serve, or priority
+            sc = new TSOS.ShellCommand(this.shellSetSchedule, "setschedule", "[rr, fcfs, priority] - Sets the current cpu scheduling algorithm.");
             this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
@@ -410,6 +413,20 @@ var TSOS;
                 currentSchedule = "Priority";
             }
             _StdOut.putText("The current CPU scheduling algorithm is " + currentSchedule);
+        };
+        Shell.prototype.shellSetSchedule = function (args) {
+            if (args[0] === 'rr') {
+                schedule = 'rr';
+            }
+            else if (args[0] === 'fcfs') {
+                schedule = 'fcfs';
+            }
+            else if (args[0] === 'priority') {
+                schedule = 'priority';
+            }
+            else {
+                _StdOut.putText("That is not a valid scheduling algorithm");
+            }
         };
         Shell.prototype.shellPS = function () {
             if (_PCB != null) {
