@@ -133,13 +133,13 @@ var TSOS;
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
-                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) {
+                if (this.curses.indexOf("[" + TSOS.Utils.rot13(cmd) + "]") >= 0) { // Check for curses.
                     this.execute(this.shellCurse);
                 }
-                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {
+                else if (this.apologies.indexOf("[" + cmd + "]") >= 0) { // Check for apologies.
                     this.execute(this.shellApology);
                 }
-                else {
+                else { // It's just a bad command. {
                     this.execute(this.shellInvalidCommand);
                 }
             }
@@ -237,7 +237,7 @@ var TSOS;
             _StdOut.advanceLine();
             _StdOut.putText("All Members of the Justice League are contained");
         };
-        Shell.prototype.shellLoad = function () {
+        Shell.prototype.shellLoad = function (args) {
             if (!_Memory.partition1Used || !_Memory.partition2Used || !_Memory.partition3Used) {
                 var userInput = document.getElementById('taProgramInput').value;
                 var isValid = true;
@@ -260,7 +260,13 @@ var TSOS;
                     }
                 }
                 if (isValid) {
-                    _MemoryManager.loadInMainMemory(userInput);
+                    console.log(args);
+                    if (args.length < 1) {
+                        _MemoryManager.loadInMainMemory(userInput);
+                    }
+                    else {
+                        _MemoryManager.loadInMainMemoryWithPriority(userInput, args[0]);
+                    }
                     _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
                     currentPID = currentPID + 1;
                 }

@@ -18,6 +18,7 @@ module TSOS {
                     public xReg,
                     public yReg,
                     public zFlag,
+                    public priority,
                     public partition) {
           this.PID = PID;
           this.State = "New";
@@ -27,6 +28,7 @@ module TSOS {
           this.xReg = 0;
           this.yReg = 0;
           this.zFlag = 0;
+          this.priority = priority;
           this.partition = partition;
         }
 

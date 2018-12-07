@@ -318,7 +318,7 @@ module TSOS {
             _StdOut.putText("All Members of the Justice League are contained");
         }
 
-        public shellLoad() {
+        public shellLoad(args) {
           if(!_Memory.partition1Used || !_Memory.partition2Used || !_Memory.partition3Used){
             var userInput: string = document.getElementById('taProgramInput').value;
             var isValid = true;
@@ -341,7 +341,13 @@ module TSOS {
               }
             }
             if(isValid) {
-              _MemoryManager.loadInMainMemory(userInput);
+              console.log(args);
+              if(args.length < 1) {
+                _MemoryManager.loadInMainMemory(userInput);
+              }
+              else {
+                _MemoryManager.loadInMainMemoryWithPriority(userInput, args[0]);
+              }
               _StdOut.putText("Program Loading Sequence was a success. The PID is " + currentPID);
               currentPID = currentPID + 1;
             }
