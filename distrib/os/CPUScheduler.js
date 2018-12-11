@@ -12,6 +12,7 @@ var TSOS;
             this.currentCount = currentCount;
         }
         CPUScheduler.prototype.contextSwitch = function () {
+            var tempPCB = _PCB;
             if (_PCB != null) {
                 _PCB.State = "Waiting";
                 _ReadyQueue.enqueue(_PCB);
@@ -30,6 +31,15 @@ var TSOS;
                 _CPU.Xreg = _PCB.xReg;
                 _CPU.Yreg = _PCB.yReg;
                 _CPU.Zflag = _PCB.zFlag;
+                if (_PCB.State === "On Disk") {
+                    if (_ReadyQueue.getSize() >= 3) {
+                        var tempPartition = tempPCB.partition;
+                        _MemoryManager.swapIntoMemory(_FileSystemDeviceDriver.swapProcess(tempPCB, _PCB, _MemoryManager.getProcessFromMemory(tempPartition)), tempPartition);
+                    }
+                    else {
+                        _MemoryManager.putIntoMemory(_FileSystemDeviceDriver.deleteProcess("-" + _PCB.PID), _PCB);
+                    }
+                }
             }
         };
         CPUScheduler.prototype.getHighestPriority = function () {

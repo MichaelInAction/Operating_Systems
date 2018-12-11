@@ -1,6 +1,7 @@
 ///<reference path="../globals.ts" />
 ///<reference path="../utils.ts" />
 ///<reference path="deviceDriver.ts" />
+///<reference path="PCB.ts" />
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -151,6 +152,65 @@ var TSOS;
                 return false;
             }
         };
+        //Stores a process on disk
+        //returns the t:s:b that the file is stored in. returns null if there is no space
+        fileSystemDeviceDriver.prototype.storeProcess = function (process, pid) {
+            console.log(process);
+            for (var i = 0; i < this.fileBlocks.length; i++) {
+                if (this.fileBlocks[i][1] === "") {
+                    this.fileBlocks[i][1] = "-" + pid;
+                    if (window.sessionStorage) {
+                        window.sessionStorage.setItem(this.fileBlocks[i][0], process + window.sessionStorage.getItem(this.fileBlocks[i][0]).substring(process.length));
+                        var newPCB = new TSOS.PCB("" + currentPID, "On Disk", 0, process.substring(0, 2), 0, 0, 0, 0, 0, this.fileBlocks[i][0]);
+                        _ResidentList.enqueue(newPCB);
+                    }
+                    else {
+                        console.log("This browser does not support session storage");
+                        return null;
+                    }
+                    return this.fileBlocks[i][0];
+                }
+            }
+            return null;
+        };
+        //Swaps a process in main memory with a process on disk
+        fileSystemDeviceDriver.prototype.swapProcess = function (inMemoryPCB, onDiskPCB, processInMemory) {
+            if (window.sessionStorage) {
+                var tempProcess = window.sessionStorage.getItem(onDiskPCB.partition);
+                window.sessionStorage.setItem(onDiskPCB.partition, processInMemory);
+                for (var i = 0; i < this.fileBlocks.length; i++) {
+                    if (this.fileBlocks[i][0] === onDiskPCB.partition) {
+                        this.fileBlocks[i][1] = "-" + inMemoryPCB.PID;
+                    }
+                }
+                var tempPartition = inMemoryPCB.partition;
+                inMemoryPCB.partition = onDiskPCB.partition;
+                inMemoryPCB.State = "On Disk";
+                onDiskPCB.partition = tempPartition;
+                return tempProcess;
+            }
+            else {
+                console.log("This browser does not support session storage");
+            }
+        };
+        //deletes a process file of the given processName
+        //used only by the cpu/cpuscheduler/os when the process is completed or killed
+        //returns the deleted process code
+        fileSystemDeviceDriver.prototype.deleteProcess = function (processName) {
+            for (var i = 0; i < this.fileBlocks.length; i++) {
+                if (this.fileBlocks[i][1] === processName) {
+                    this.fileBlocks[i][1] = "";
+                    if (window.sessionStorage) {
+                        return window.sessionStorage.getItem(this.fileBlocks[i][0]);
+                    }
+                    else {
+                        console.log("This browser does not support session storage");
+                        return null;
+                    }
+                }
+            }
+            return null;
+        };
         //Function to get all of the blocks in the file system and their contents
         //returns an array of all blocks in the form of [[0:0:0, contents], [0:0:1, contents], ...]
         fileSystemDeviceDriver.prototype.getAllBlocks = function () {
@@ -195,12 +255,17 @@ var TSOS;
         //gets the index in fileBlocks where the given fileName is
         //if the fileName exists, returns its index in fileBlocks, else returns -1
         fileSystemDeviceDriver.prototype.getFileName = function (fileName) {
-            for (var i = 0; i < this.fileBlocks.length; i++) {
-                if (this.fileBlocks[i][1] === fileName) {
-                    return i;
+            if (fileName.substring(0, 1) !== "-") {
+                for (var i = 0; i < this.fileBlocks.length; i++) {
+                    if (this.fileBlocks[i][1] === fileName) {
+                        return i;
+                    }
                 }
+                return -1;
             }
-            return -1;
+            else {
+                return -1;
+            }
         };
         return fileSystemDeviceDriver;
     }(TSOS.DeviceDriver));

@@ -256,8 +256,8 @@ var TSOS;
             _StdOut.putText("All Members of the Justice League are contained");
         };
         Shell.prototype.shellLoad = function (args) {
+            var userInput = document.getElementById('taProgramInput').value;
             if (!_Memory.partition1Used || !_Memory.partition2Used || !_Memory.partition3Used) {
-                var userInput = document.getElementById('taProgramInput').value;
                 var isValid = true;
                 var invalidCharacters = new RegExp(/[^0-9A-F\s]/);
                 if (userInput.trim().length == 0) {
@@ -289,7 +289,16 @@ var TSOS;
                 }
             }
             else {
-                _StdOut.putText("Memory partitions are full!");
+                _StdOut.putText("Main Memory partitions are full! Attempting to store on disk!");
+                console.log(userInput);
+                var diskLocation = _FileSystemDeviceDriver.storeProcess(userInput, currentPID);
+                if (diskLocation !== null) {
+                    _StdOut.putText("Process stored successfully on disk with PID " + currentPID);
+                    currentPID = currentPID + 1;
+                }
+                else {
+                    _StdOut.putText("Disk full as well! Unable to load process!");
+                }
             }
         };
         Shell.prototype.shellRun = function (args) {

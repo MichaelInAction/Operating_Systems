@@ -14,6 +14,49 @@ module TSOS {
         public constructor() {
         }
 
+        public swapIntoMemory(programToSwap, partition) {
+          var splitInput = programToSwap.split(" ", 256);
+          for(var i = 0; i < splitInput.length; i++){
+            _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
+          }
+          for(var i: number = splitInput.length; i < 256; i++) {
+            _Memory.mainMemory[((partition - 1) * 256) + i] = "00";
+          }
+        }
+
+        public putIntoMemory(programToPut, PCB) {
+          var partition;
+          if(!_Memory.partition1Used) {
+            partition = 1;
+            PCB.partition = 1;
+            _Memory.partition1Used = true;
+          } else if(!_Memory.partition2Used) {
+            partition = 2;
+            PCB.partition = 2;
+            _Memory.partition2Used = true;
+          } else {
+            partition = 3;
+            PCB.partition = 3;
+            _Memory.partition3Used = true;
+          }
+          var splitInput = programToPut.split(" ", 256);
+          for(var i = 0; i < splitInput.length; i++){
+            _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
+          }
+          for(var i: number = splitInput.length; i < 256; i++) {
+            _Memory.mainMemory[((partition - 1) * 256) + i] = "00";
+          }
+        }
+
+        public getProcessFromMemory(partition) {
+          var str = "";
+          str = _Memory.mainMemory[((partition - 1) * 256)];
+          for(var i = 1; i < 256; i++) {
+            str = str + " " + _Memory.mainMemory[((partition - 1) * 256) + i];
+          }
+          return str;
+        }
+
         public loadInMainMemory(programToLoad): void {
           var partition;
           if(!_Memory.partition1Used) {

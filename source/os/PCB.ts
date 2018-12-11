@@ -21,7 +21,7 @@ module TSOS {
                     public priority,
                     public partition) {
           this.PID = PID;
-          this.State = "New";
+          this.State = State;
           this.PC = 0;
           this.IR = IR;
           this.Acc = 0;

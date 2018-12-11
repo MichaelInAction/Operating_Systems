@@ -10,6 +10,48 @@ var TSOS;
     var MemoryManager = /** @class */ (function () {
         function MemoryManager() {
         }
+        MemoryManager.prototype.swapIntoMemory = function (programToSwap, partition) {
+            var splitInput = programToSwap.split(" ", 256);
+            for (var i = 0; i < splitInput.length; i++) {
+                _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
+            }
+            for (var i = splitInput.length; i < 256; i++) {
+                _Memory.mainMemory[((partition - 1) * 256) + i] = "00";
+            }
+        };
+        MemoryManager.prototype.putIntoMemory = function (programToPut, PCB) {
+            var partition;
+            if (!_Memory.partition1Used) {
+                partition = 1;
+                PCB.partition = 1;
+                _Memory.partition1Used = true;
+            }
+            else if (!_Memory.partition2Used) {
+                partition = 2;
+                PCB.partition = 2;
+                _Memory.partition2Used = true;
+            }
+            else {
+                partition = 3;
+                PCB.partition = 3;
+                _Memory.partition3Used = true;
+            }
+            var splitInput = programToPut.split(" ", 256);
+            for (var i = 0; i < splitInput.length; i++) {
+                _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
+            }
+            for (var i = splitInput.length; i < 256; i++) {
+                _Memory.mainMemory[((partition - 1) * 256) + i] = "00";
+            }
+        };
+        MemoryManager.prototype.getProcessFromMemory = function (partition) {
+            var str = "";
+            str = _Memory.mainMemory[((partition - 1) * 256)];
+            for (var i = 1; i < 256; i++) {
+                str = str + " " + _Memory.mainMemory[((partition - 1) * 256) + i];
+            }
+            return str;
+        };
         MemoryManager.prototype.loadInMainMemory = function (programToLoad) {
             var partition;
             if (!_Memory.partition1Used) {
