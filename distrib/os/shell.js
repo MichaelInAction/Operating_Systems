@@ -94,6 +94,12 @@ var TSOS;
             // setschedule [rr, fcfs, priority] - sets the current scheduling algorithm to either round robin, first come first serve, or priority
             sc = new TSOS.ShellCommand(this.shellSetSchedule, "setschedule", "[rr, fcfs, priority] - Sets the current cpu scheduling algorithm.");
             this.commandList[this.commandList.length] = sc;
+            // create <filename> - create the file filename
+            sc = new TSOS.ShellCommand(this.shellCreate, "create", "<filename> - creates a file in the file system.");
+            this.commandList[this.commandList.length] = sc;
+            // write <filename> "data" - write the data inside the quotes to filename
+            sc = new TSOS.ShellCommand(this.shellWrite, "write", "<filename> \"data\" - writes to a file on the file system.");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -486,6 +492,38 @@ var TSOS;
             }
             else {
                 _StdOut.putText("That PID is not associated with an existing process");
+            }
+        };
+        Shell.prototype.shellCreate = function (args) {
+            if (args && args.length === 1) {
+                var status = _FileSystemDeviceDriver.create(args[0]);
+                if (status === 0) {
+                    _StdOut.putText("I have created the file, Master Bruce...");
+                }
+                else if (status === 1) {
+                    _StdOut.putText("Master Bruce, it appears as if you already have a file of that name...");
+                }
+                else {
+                    _StdOut.putText("Master Bruce, there appears to be no more room on disk for that file...");
+                }
+            }
+            else {
+                _StdOut.putText("Master Bruce, did you forget the name of the file?");
+            }
+        };
+        Shell.prototype.shellWrite = function (args) {
+            if (args && args.length === 2) {
+                var str = args[1].substring(1, args[1].length - 1);
+                var status = _FileSystemDeviceDriver.write(args[0], str);
+                if (status) {
+                    _StdOut.putText("The changes have been made to the file, Master Bruce...");
+                }
+                else {
+                    _StdOut.putText("Something went wrong when making those changes, Master Bruce. Are you sure that file exists?");
+                }
+            }
+            else {
+                _StdOut.putText("Master Bruce, I need both the name of the file and the new contents of the file to perform that command...");
             }
         };
         Shell.prototype.checkTime = function () {

@@ -56,6 +56,14 @@ module TSOS {
           return parseInt(hex, 16);
         }
 
+        public static StringToHex(str): string {
+          var toReturn = "";
+          for(var i = 0; i < str.length; i++) {
+            toReturn = toReturn + this.IntToHex(str.charCodeAt(i)) + " ";
+          }
+          return toReturn.substring(0, toReturn.length - 1);
+        }
+
         public static toggleSingleStepMode(): void {
           singleStepMode = !singleStepMode;
           console.log(singleStepMode);

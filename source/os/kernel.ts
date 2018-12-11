@@ -6,6 +6,7 @@
 ///<reference path="../host/control.ts" />
 ///<reference path="../host/devices.ts" />
 ///<reference path="CPUScheduler.ts" />
+///<reference path="fileSystemDeviceDriver.ts" />
 
 /* ------------
      Kernel.ts
@@ -57,6 +58,10 @@ module TSOS {
 
             // Initialize the CPU Scheduler
             _CPUScheduler = new CPUScheduler();
+
+            //Initialize the File System Device Driver
+            _FileSystemDeviceDriver = new fileSystemDeviceDriver();
+            _FileSystemDeviceDriver.init();
 
             // Enable the OS Interrupts.  (Not the CPU clock interrupt, as that is done in the hardware sim.)
             this.krnTrace("Enabling the interrupts.");

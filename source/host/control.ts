@@ -142,6 +142,18 @@ module TSOS {
               temp += '<td>--</td></tr>';
             }
             document.getElementById("taPCBBody").innerHTML = temp;
+
+            //Display the contents of the file system
+            temp = "";
+            if(_FileSystemDeviceDriver) {
+              var files = _FileSystemDeviceDriver.getAllBlocks();
+              for(var i = 0; i < files.length; i++) {
+                temp += '<tr><td>' + files[i][0] + "</td>";
+                temp += '<td>' + files[i][1] + "</td></tr>";
+              }
+            }
+            document.getElementById("taFileSystemBody").innerHTML = temp;
+
             // TODO in the future: Optionally update a log database or some streaming service.
         }
 
