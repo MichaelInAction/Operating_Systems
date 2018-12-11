@@ -134,6 +134,19 @@ module TSOS {
           }
         }
 
+        //deletes the given fileName
+        //returns true if it was a success, false otherwise
+        public delete(fileName) {
+          var index = this.getFileName(fileName);
+          if(index !== -1) {
+            this.fileBlocks[index][1] = "";
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+
         //Function to get all of the blocks in the file system and their contents
         //returns an array of all blocks in the form of [[0:0:0, contents], [0:0:1, contents], ...]
         public getAllBlocks() {

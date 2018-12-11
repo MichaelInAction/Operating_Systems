@@ -103,6 +103,9 @@ var TSOS;
             // read <filename> - read and display the contents of filename
             sc = new TSOS.ShellCommand(this.shellRead, "read", "<filename> -reads and displays the contents of a file on the file system.");
             this.commandList[this.commandList.length] = sc;
+            // delete <filename> - remove filename from storage
+            sc = new TSOS.ShellCommand(this.shellDelete, "delete", "<filename> -removes a file from the file system.");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -550,6 +553,20 @@ var TSOS;
             }
             else {
                 _StdOut.putText("Master Bruce, I need to know the name of the file you would like me to read from...");
+            }
+        };
+        Shell.prototype.shellDelete = function (args) {
+            if (args && args.length === 1) {
+                var status = _FileSystemDeviceDriver["delete"](args[0]);
+                if (status) {
+                    _StdOut.putText("I have deleted that file, Master Bruce. If you would like the data perminently erased, I would suggest running a full format on the disk...");
+                }
+                else {
+                    _StdOut.putText("Something went wrong when deleting that file, Master Bruce. Are you sure that file exists?");
+                }
+            }
+            else {
+                _StdOut.putText("Master Bruce, I need to know the name of the file you would like me to delete...");
             }
         };
         Shell.prototype.checkTime = function () {
