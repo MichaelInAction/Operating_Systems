@@ -100,6 +100,9 @@ var TSOS;
             // write <filename> "data" - write the data inside the quotes to filename
             sc = new TSOS.ShellCommand(this.shellWrite, "write", "<filename> \"data\" - writes to a file on the file system.");
             this.commandList[this.commandList.length] = sc;
+            // read <filename> - read and display the contents of filename
+            sc = new TSOS.ShellCommand(this.shellRead, "read", "<filename> -reads and displays the contents of a file on the file system.");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -512,18 +515,41 @@ var TSOS;
             }
         };
         Shell.prototype.shellWrite = function (args) {
-            if (args && args.length === 2) {
-                var str = args[1].substring(1, args[1].length - 1);
-                var status = _FileSystemDeviceDriver.write(args[0], str);
-                if (status) {
-                    _StdOut.putText("The changes have been made to the file, Master Bruce...");
+            if (args && args.length >= 2) {
+                var str = "";
+                for (var i = 1; i < args.length; i++) {
+                    str = str + args[i];
+                }
+                if (str.substring(0, 1) === "\"" && str.substring(str.length - 1) === "\"") {
+                    str = str.substring(1, str.length - 1);
+                    var status = _FileSystemDeviceDriver.write(args[0], str);
+                    if (status) {
+                        _StdOut.putText("The changes have been made to the file, Master Bruce...");
+                    }
+                    else {
+                        _StdOut.putText("Something went wrong when making those changes, Master Bruce. Are you sure that file exists?");
+                    }
                 }
                 else {
-                    _StdOut.putText("Something went wrong when making those changes, Master Bruce. Are you sure that file exists?");
+                    _StdOut.putText("Master Bruce, you must put quotes on both sides of the data you wish to enter");
                 }
             }
             else {
                 _StdOut.putText("Master Bruce, I need both the name of the file and the new contents of the file to perform that command...");
+            }
+        };
+        Shell.prototype.shellRead = function (args) {
+            if (args && args.length === 1) {
+                var response = _FileSystemDeviceDriver.read(args[0]);
+                if (response !== null) {
+                    _StdOut.putText(response);
+                }
+                else {
+                    _StdOut.putText("Something went wrong when reading that file, Master Bruce. Are you sure that file exists?");
+                }
+            }
+            else {
+                _StdOut.putText("Master Bruce, I need to know the name of the file you would like me to read from...");
             }
         };
         Shell.prototype.checkTime = function () {

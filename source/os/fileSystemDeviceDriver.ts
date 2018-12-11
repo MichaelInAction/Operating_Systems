@@ -117,6 +117,23 @@ module TSOS {
           }
         }
 
+        //reads from the given file and returns the contents
+        public read(fileName) {
+          var index = this.getFileName(fileName);
+          if(index !== -1) {
+            if(window.sessionStorage) {
+              return Utils.HexToString(window.sessionStorage.getItem(this.fileBlocks[index][0]));
+            }
+            else {
+              console.log("This browser does not support session storage");
+              return null;
+            }
+          }
+          else {
+            return null;
+          }
+        }
+
         //Function to get all of the blocks in the file system and their contents
         //returns an array of all blocks in the form of [[0:0:0, contents], [0:0:1, contents], ...]
         public getAllBlocks() {

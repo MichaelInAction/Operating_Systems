@@ -61,6 +61,16 @@ var TSOS;
             }
             return toReturn.substring(0, toReturn.length - 1);
         };
+        Utils.HexToString = function (hex) {
+            var chars = hex.split(" ");
+            var toReturn = "";
+            for (var i = 0; i < chars.length; i++) {
+                if (chars[i] !== "00") {
+                    toReturn = toReturn + String.fromCharCode(this.HexToInt(chars[i]));
+                }
+            }
+            return toReturn;
+        };
         Utils.toggleSingleStepMode = function () {
             singleStepMode = !singleStepMode;
             console.log(singleStepMode);

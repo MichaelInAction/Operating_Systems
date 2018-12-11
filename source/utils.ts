@@ -64,6 +64,17 @@ module TSOS {
           return toReturn.substring(0, toReturn.length - 1);
         }
 
+        public static HexToString(hex): string {
+          var chars = hex.split(" ");
+          var toReturn = "";
+          for(var i = 0; i < chars.length; i++) {
+            if(chars[i] !== "00") {
+              toReturn = toReturn + String.fromCharCode(this.HexToInt(chars[i]));
+            }
+          }
+          return toReturn;
+        }
+
         public static toggleSingleStepMode(): void {
           singleStepMode = !singleStepMode;
           console.log(singleStepMode);
