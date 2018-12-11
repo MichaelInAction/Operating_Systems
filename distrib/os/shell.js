@@ -260,7 +260,6 @@ var TSOS;
                     }
                 }
                 if (isValid) {
-                    console.log(args);
                     if (args.length < 1) {
                         _MemoryManager.loadInMainMemory(userInput);
                     }
@@ -386,9 +385,14 @@ var TSOS;
         };
         Shell.prototype.shellRunAll = function () {
             if (_ResidentList.getSize() > 0) {
-                _PCB = _ResidentList.dequeue();
                 while (_ResidentList.getSize() > 0) {
                     _ReadyQueue.enqueue(_ResidentList.dequeue());
+                }
+                if (schedule === "rr" || schedule === "fcfs") {
+                    _PCB = _ReadyQueue.dequeue();
+                }
+                else if (schedule === "priority") {
+                    _PCB = _CPUScheduler.getHighestPriority();
                 }
                 _CPUScheduler.currentCount = 0;
                 _CPU.PC = _PCB.PC;
@@ -494,7 +498,6 @@ var TSOS;
             var ret = "";
             for (var i in this.commandList) {
                 if (this.commandList[i].command.indexOf(args) == 0) {
-                    console.log('Found a match! The match is ' + this.commandList[i].command);
                     ret = this.commandList[i].command;
                 }
             }

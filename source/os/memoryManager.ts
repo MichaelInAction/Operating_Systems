@@ -29,7 +29,6 @@ module TSOS {
           var splitInput = programToLoad.split(" ", 256);
           _StdOut.putText("Partition " + partition);
           for(var i = 0; i < splitInput.length; i++){
-            console.log(splitInput[i]);
             _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
           }
           for(var i: number = splitInput.length; i < 256; i++) {
@@ -54,7 +53,6 @@ module TSOS {
           var splitInput = programToLoad.split(" ", 256);
           _StdOut.putText("Partition " + partition);
           for(var i = 0; i < splitInput.length; i++){
-            console.log(splitInput[i]);
             _Memory.mainMemory[((partition - 1) * 256) + i] = splitInput[i];
           }
           for(var i: number = splitInput.length; i < 256; i++) {
