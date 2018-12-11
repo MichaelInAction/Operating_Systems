@@ -87,6 +87,8 @@ module TSOS {
             for(var i = 0; i < this.fileBlocks.length; i++) {
               if(this.fileBlocks[i][1] === "") {
                 this.fileBlocks[i][1] = fileName;
+                var today = new Date();
+                this.fileBlocks[i][2] = (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
                 return 0;
               }
             }
@@ -165,6 +167,30 @@ module TSOS {
             console.log("This browser does not support session storage")
           }
           return blocks;
+        }
+
+        //Function to get all of the names of the files that exist in the file system
+        //returns an array of all the non-hidden and non-process file names
+        public getVisibleFileNames() {
+          let toReturn = [];
+          for(var i = 0; i < this.fileBlocks.length; i++) {
+            if(this.fileBlocks[i][1] !== "" && this.fileBlocks[i][1].substring(0, 1) !== "." && this.fileBlocks[i][1].substring(0, 1) !== "-") {
+              toReturn.push(this.fileBlocks[i][1]);
+            }
+          }
+          return toReturn;
+        }
+
+        //Function to get all of the names of the files that exist in the file system, including hidden files
+        //returns an array of all the non-process file names
+        public getAllFileNames() {
+          let toReturn = [];
+          for(var i = 0; i < this.fileBlocks.length; i++) {
+            if(this.fileBlocks[i][1] !== "" && this.fileBlocks[i][1].substring(0, 1) !== "-") {
+              toReturn.push([this.fileBlocks[i][1], this.fileBlocks[i][2]]);
+            }
+          }
+          return toReturn;
         }
 
         //gets the index in fileBlocks where the given fileName is

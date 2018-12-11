@@ -109,6 +109,9 @@ var TSOS;
             // format - initialize all blocks in all sectors in all tracks
             sc = new TSOS.ShellCommand(this.shellFormat, "format", " - formats the file system by initializing all blocks in all sectors in all tracks. You can use quick or full as an argument to denote whether you would like to perform a quick or full format");
             this.commandList[this.commandList.length] = sc;
+            // ls - list the files currently stored on the disk
+            sc = new TSOS.ShellCommand(this.shellLS, "ls", " - lists the files currently stored on the disk. By default, ignores hidden files. To view hidden files as well as creation dates and file sizes, use the argument l");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -580,6 +583,37 @@ var TSOS;
             else if ((!args || args.length < 1) || ((args && args.length === 1) && args[0] === "full")) {
                 _FileSystemDeviceDriver.fullFormat();
                 _StdOut.putText("I have successfully performed a full format, Master Bruce...");
+            }
+            else {
+                _StdOut.putText("Master Bruce, that is not a valid argument for that command...");
+            }
+        };
+        Shell.prototype.shellLS = function (args) {
+            if (args && args.length === 1 && args[0] === "l") {
+                var arr = _FileSystemDeviceDriver.getAllFileNames();
+                if (arr.length === 0) {
+                    _StdOut.putText("Master Bruce, there are not any files on the disk.");
+                }
+                else {
+                    _StdOut.putText("Master Bruce, the currently existing files are:");
+                    for (var i = 0; i < arr.length; i++) {
+                        _StdOut.advanceLine();
+                        _StdOut.putText(arr[i][0] + " - Creation Date: " + arr[i][1] + "; File Size: 256 Bytes");
+                    }
+                }
+            }
+            else if (!args || args.length < 1) {
+                var arr = _FileSystemDeviceDriver.getVisibleFileNames();
+                if (arr.length === 0) {
+                    _StdOut.putText("Master Bruce, there are not any files on the disk.");
+                }
+                else {
+                    _StdOut.putText("Master Bruce, the currently existing files are:");
+                    for (var i = 0; i < arr.length; i++) {
+                        _StdOut.advanceLine();
+                        _StdOut.putText(arr[i]);
+                    }
+                }
             }
             else {
                 _StdOut.putText("Master Bruce, that is not a valid argument for that command...");
