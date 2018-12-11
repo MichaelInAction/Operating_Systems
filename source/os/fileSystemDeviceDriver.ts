@@ -70,7 +70,7 @@ module TSOS {
                   var str = "" + track + ":" + sector + ":" + block;
                   var storage = "00 00 00 00" + window.sessionStorage.getItem(str).substring(11);
                   window.sessionStorage.setItem(str, storage);
-                  this.fileBlocks[(track * 8) + (sector * 8) + (block + 1)][1] = "";
+                  this.fileBlocks[(track * 8) + (sector * 8) + (block)][1] = "";
                 }
               }
             }

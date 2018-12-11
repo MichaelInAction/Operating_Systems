@@ -176,13 +176,19 @@ module TSOS {
             // read <filename> - read and display the contents of filename
             sc = new ShellCommand(this.shellRead,
                                   "read",
-                                  "<filename> -reads and displays the contents of a file on the file system.");
+                                  "<filename> - reads and displays the contents of a file on the file system.");
             this.commandList[this.commandList.length] = sc;
 
             // delete <filename> - remove filename from storage
             sc = new ShellCommand(this.shellDelete,
                                   "delete",
-                                  "<filename> -removes a file from the file system.");
+                                  "<filename> - removes a file from the file system.");
+            this.commandList[this.commandList.length] = sc;
+
+            // format - initialize all blocks in all sectors in all tracks
+            sc = new ShellCommand(this.shellFormat,
+                                  "format",
+                                  " - formats the file system by initializing all blocks in all sectors in all tracks. You can use quick or full as an argument to denote whether you would like to perform a quick or full format");
             this.commandList[this.commandList.length] = sc;
 
             //
@@ -676,6 +682,20 @@ module TSOS {
           }
           else {
             _StdOut.putText("Master Bruce, I need to know the name of the file you would like me to delete...");
+          }
+        }
+
+        public shellFormat(args) {
+          if((args && args.length === 1) && args[0] === "quick") {
+            _FileSystemDeviceDriver.quickFormat();
+            _StdOut.putText("I have successfully performed a quick format, Master Bruce...");
+          }
+          else if((!args || args.length < 1) || ((args && args.length === 1) && args[0] === "full")) {
+            _FileSystemDeviceDriver.fullFormat();
+            _StdOut.putText("I have successfully performed a full format, Master Bruce...");
+          }
+          else {
+            _StdOut.putText("Master Bruce, that is not a valid argument for that command...");
           }
         }
 
